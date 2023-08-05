@@ -1,6 +1,7 @@
 import random
 import pygame as pg
 import time 
+import sys
 
 # Tamaño pantalla
 ANCHO, ALTO = 1000, 600
@@ -835,17 +836,14 @@ contador_poner_enemigos = 4
 
 
 # Bucle del juego
-ejecutando = True
-
-while ejecutando == True:
-
-
+while True:
     clock.tick(FPS) # velociade de bucle
-    
+
     #para saber si terminar el bucle
     for event in pg.event.get():
         if event.type == pg.QUIT:
-            ejecutando = False
+            pg.quit()
+            sys.exit()
 
     # CREAR ENEMIGOS CON EL TIEMPO
     if ((segundos == 2 and tiempo_milisegundo < 1) and minutos == 0) or (segundos == 30 and tiempo_milisegundo < 1) or (segundos == 59 and tiempo_milisegundo < 1):
@@ -975,7 +973,7 @@ while ejecutando == True:
                     sprite_muro.kill()
                     contador_enemigo_muro = 0
                     
-                   
+                
 
     # Coliciones del jugador con los enemigos
     colision_jugador_enemigos = pg.sprite.spritecollide(jugador, sprites_enemigos, False,pg.sprite.collide_circle)
@@ -1209,4 +1207,4 @@ while ejecutando == True:
     pg.display.flip()
 
 
-pg.quit()   
+    
