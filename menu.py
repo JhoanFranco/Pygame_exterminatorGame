@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 from button import Button
+from  prueba_funcionMainProyecto import inicializarJuego
 
 ANCHO, ALTO = 1000,600
 FPS = 10
@@ -40,6 +41,7 @@ listButtonsMain = [buttonInstructions, buttonPlay, buttonOption]
 listMenuOption = [buttonBack]
 
 def menuOption():
+
     while True:
         positionMouse = pg.mouse.get_pos()
         Background2 = pg.transform.scale(pg.image.load("imagenes/fondoMenu2.png"),(ANCHO,ALTO))
@@ -48,7 +50,6 @@ def menuOption():
         for button in listMenuOption:
             button.update(screen)
             button.updateColor(positionMouse)
-
 
         for event in pg.event.get():
             if event.type == pg.MOUSEBUTTONDOWN:
@@ -92,7 +93,8 @@ def principalMenu():
                         if button.inputText == "Options":
                             menuOption()
                         elif button.inputText == "Play":
-                            # llamar al juego
+                            # LLAMAR AL JUEGO 
+                            inicializarJuego()
                             print("llamar el juego")
 
         screen.blit(Background,(0,0)) # Whitout Margin in the background
