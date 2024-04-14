@@ -115,32 +115,37 @@ movimientoExterminador_derecha = False
 movimientoExterminador_arriba = False
 movimientoExterminador_abajo = False
 
+# variable para saber si el jugador se mueve
+movimientoExterminador_moviendose = False
+
 #Variables para contar los frames
 contadorFrames_exterminador_arriba = 0
 contadorFrames_exterminador_DerIzq = 0
 contadorFrames_exterminador_abajo = 0
 
 # contadores para las coliciones
-contador_bala_muro = 0
-contador_enemigo_muro =0
+contadorColicion_balaMuro = 0
+contadorColicion_enemigoMuro =0
 
 #Variables boleanas para los cubos (premios)
-bool_disparo_grande = False
+bool_activacionDisparo_Grande = False
 bool_barril_explota = False
 
-# contador para los objetos premios
-contador_balas_disparoGrande = 3
-contador_barril_explota = 3
-contador_muros = 5
+# contador para las municiones del exterminador
+contadorMunicionExterminador_balas_disparoGrande = 3
+contadorMunicionExterminador_barril_explota = 3
+contadorMunicionExterminador_muros = 5
 
-# contadores boleanos para saber si poner musica
+# Variables de musica
+# banderas para saber si poner musica
 bool_musica_mordida_zombie_verde = False
 bool_musica_mordida_zombie_morado = False
-    # No hay necesidad de una variable para la musica del barril ya que cuando lo actualizamos se elimina el sprite
-bool_musica_dolor_jugador = False
 
-# variable para saber si el jugador se mueve
-moviendose = False
+bool_musica_dolor_jugador = False
+# ojo: No hay necesidad de una variable para la musica del barril ya que cuando lo actualizamos se elimina el sprite
+
+
+
 
 # mirar si el volumen es nulo
 es_volumen_nulo = False
@@ -174,15 +179,15 @@ class Jugador(pg.sprite.Sprite):
         global contadorFrames_exterminador_DerIzq
         global contadorFrames_exterminador_arriba
 
-        global bool_disparo_grande
+        global bool_activacionDisparo_Grande
         global bool_barril_explota
 
-        global contador_barril_explota
-        global contador_muros
+        global contadorMunicionExterminador_barril_explota
+        global contadorMunicionExterminador_muros
 
         global EstaDisparando
         global bool_musica_dolor_jugador
-        global moviendose
+        global movimientoExterminador_moviendose
         
 
         # Restablecer el indice del sprite cuando se termine de hacer la animaciòn
@@ -195,29 +200,29 @@ class Jugador(pg.sprite.Sprite):
             contadorFrames_exterminador_abajo = 0
 
         # Cambiar la imagen si el jugador  la tecla correspondiente. Va antes porque primero se toca la tecla
-        if movimientoExterminador_derecha == True and moviendose == True:
+        if movimientoExterminador_derecha == True and movimientoExterminador_moviendose == True:
             self.image = pg.transform.scale((imagenes_exterminador_correrDerecha[contadorFrames_exterminador_DerIzq]), (100,50))
             contadorFrames_exterminador_DerIzq += 1
-        elif movimientoExterminador_izquierda == True and moviendose == True:
+        elif movimientoExterminador_izquierda == True and movimientoExterminador_moviendose == True:
             self.image = pg.transform.scale((imagenes_exterminador_correrIzquierda[contadorFrames_exterminador_DerIzq]), (100,50))
             contadorFrames_exterminador_DerIzq += 1
         # para frames de movimiento vertical
-        elif movimientoExterminador_arriba == True and moviendose == True:
+        elif movimientoExterminador_arriba == True and movimientoExterminador_moviendose == True:
             self.image = pg.transform.scale((imagenes_exterminador_correrArriba[contadorFrames_exterminador_arriba]), (100,50))
             contadorFrames_exterminador_arriba += 1
-        elif movimientoExterminador_abajo == True and moviendose == True:
+        elif movimientoExterminador_abajo == True and movimientoExterminador_moviendose == True:
             self.image = pg.transform.scale((imagenes_exterminador_correrAbajo[contadorFrames_exterminador_abajo]),  (100,50))
             contadorFrames_exterminador_abajo += 1
  
         # PARA CUANDO NO ESTA MOVIENDOSE
-        if movimientoExterminador_derecha == True and moviendose == False:
+        if movimientoExterminador_derecha == True and movimientoExterminador_moviendose == False:
             self.image = pg.transform.scale(pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_1.png"),(100,50))
-        elif movimientoExterminador_izquierda == True and moviendose == False:
+        elif movimientoExterminador_izquierda == True and movimientoExterminador_moviendose == False:
             self.image = pg.transform.scale(pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_izq_1.png"), (100,50))
         # para frames de movimiento vertical
-        elif movimientoExterminador_arriba == True and moviendose == False:
+        elif movimientoExterminador_arriba == True and movimientoExterminador_moviendose == False:
             self.image = pg.transform.scale((imagenes_exterminador_correrArriba[1]), (100,50))
-        elif movimientoExterminador_abajo == True and moviendose == False:
+        elif movimientoExterminador_abajo == True and movimientoExterminador_moviendose == False:
             self.image = pg.transform.scale((imagenes_exterminador_correrAbajo[1]),  (100,50))
         # velocidad predeterminadad cada vuelta del bucle si no pulsas nada
 
@@ -236,14 +241,14 @@ class Jugador(pg.sprite.Sprite):
             movimientoExterminador_derecha = False
             movimientoExterminador_arriba = False
             movimientoExterminador_abajo = False
-            moviendose = True
+            movimientoExterminador_moviendose = True
         elif teclas[pg.K_d]:  # mover movimientoExterminador_derecha
             self.velocidad_x = 10
             movimientoExterminador_derecha = True
             movimientoExterminador_izquierda = False
             movimientoExterminador_arriba = False
             movimientoExterminador_abajo = False
-            moviendose = True
+            movimientoExterminador_moviendose = True
         # mover el personaje arr -abj
         elif teclas[pg.K_w]:
             self.velocidad_y = -10 # quita relleno
@@ -251,32 +256,32 @@ class Jugador(pg.sprite.Sprite):
             movimientoExterminador_abajo = False
             movimientoExterminador_izquierda = False
             movimientoExterminador_derecha = False
-            moviendose = True
+            movimientoExterminador_moviendose = True
         elif teclas[pg.K_s]:
             self.velocidad_y = 10 # pone relleno
             movimientoExterminador_abajo = True
             movimientoExterminador_arriba = False
             movimientoExterminador_izquierda = False
             movimientoExterminador_derecha = False
-            moviendose = True
+            movimientoExterminador_moviendose = True
         # si no se toca ninguna tecla
         else:
-            moviendose = False 
+            movimientoExterminador_moviendose = False 
 
         # SI EL JUGADOR QUIERE DISPARAR
 
         # Disparo grande va primero porque si es verdad pasa algo en las funciones disparo_der, izq...
 
         # si el jugador toca la tecla g y ya hizo colicion con una caja especial
-        if teclas[pg.K_g] and contador_balas_disparoGrande > 0:
-          bool_disparo_grande = True
+        if teclas[pg.K_g] and contadorMunicionExterminador_balas_disparoGrande > 0:
+          bool_activacionDisparo_Grande = True
         # si toca la tecla pero no tiene balas grandes
         elif teclas[pg.K_t]:
-          bool_disparo_grande = False
+          bool_activacionDisparo_Grande = False
           #print("toco la tecla tecla t ")
         # para desactivar el poder por si solo
-        if contador_balas_disparoGrande <= 0:
-          bool_disparo_grande = False
+        if contadorMunicionExterminador_balas_disparoGrande <= 0:
+          bool_activacionDisparo_Grande = False
 
         # DISPAROS
         if teclas[pg.K_SPACE] and movimientoExterminador_derecha == True:
@@ -297,12 +302,12 @@ class Jugador(pg.sprite.Sprite):
             EstaDisparando = True # musica
         
         #MUROS
-        if teclas[pg.K_f] and contador_muros > 0:
+        if teclas[pg.K_f] and contadorMunicionExterminador_muros > 0:
             jugador.crear_muro()
-            contador_muros -= 1
-        if teclas[pg.K_r] and contador_barril_explota > 0:
+            contadorMunicionExterminador_muros -= 1
+        if teclas[pg.K_r] and contadorMunicionExterminador_barril_explota > 0:
             jugador.crear_muro_exposivo()
-            contador_barril_explota -= 1
+            contadorMunicionExterminador_barril_explota -= 1
         else:
             pass
 
@@ -352,15 +357,15 @@ class Jugador(pg.sprite.Sprite):
 
 
     def disparo_der(self):
-        global contador_balas_disparoGrande
+        global contadorMunicionExterminador_balas_disparoGrande
 
         # ver si el volumen es nulo
         if es_volumen_nulo == False:
             self.sonido_disparo.play()
 
         # para cuado se llama a una bala pero (DISPARO GRANDE) esta activado
-        if bool_disparo_grande == True:
-            contador_balas_disparoGrande -= 1
+        if bool_activacionDisparo_Grande == True:
+            contadorMunicionExterminador_balas_disparoGrande -= 1
             bala_g = DisparosDerecha(self.rect.centerx, self.rect.centery)
             sprites_balas_grandes.add(bala_g)
         else:
@@ -369,14 +374,14 @@ class Jugador(pg.sprite.Sprite):
 
 
     def disparo_izq(self):
-        global contador_balas_disparoGrande
+        global contadorMunicionExterminador_balas_disparoGrande
 
         # ver si el volumen es nulo
         if es_volumen_nulo == False:
             self.sonido_disparo.play()
 
-        if bool_disparo_grande == True:
-            contador_balas_disparoGrande -= 1
+        if bool_activacionDisparo_Grande == True:
+            contadorMunicionExterminador_balas_disparoGrande -= 1
             bala_g = DisparosIzquierda(self.rect.centerx, self.rect.centery)
             sprites_balas_grandes.add(bala_g)
         else:
@@ -384,15 +389,15 @@ class Jugador(pg.sprite.Sprite):
             sprites_balas.add(bala)
 
     def disparo_abj(self):
-        global contador_balas_disparoGrande
+        global contadorMunicionExterminador_balas_disparoGrande
 
         # ver si el volumen es nulo
         if es_volumen_nulo == False:
             self.sonido_disparo.play()
 
 
-        if bool_disparo_grande == True:
-            contador_balas_disparoGrande -= 1
+        if bool_activacionDisparo_Grande == True:
+            contadorMunicionExterminador_balas_disparoGrande -= 1
             bala_g = DisparosAbajo(self.rect.centerx, self.rect.centery)
             sprites_balas_grandes.add(bala_g)
         else:
@@ -401,14 +406,14 @@ class Jugador(pg.sprite.Sprite):
 
 
     def disparo_Arrb(self):
-        global contador_balas_disparoGrande
+        global contadorMunicionExterminador_balas_disparoGrande
 
         # ver si el volumen es nulo
         if es_volumen_nulo == False:
             self.sonido_disparo.play()
 
-        if bool_disparo_grande == True:
-            contador_balas_disparoGrande -= 1
+        if bool_activacionDisparo_Grande == True:
+            contadorMunicionExterminador_balas_disparoGrande -= 1
             bala_g = DisparosArriba(self.rect.centerx, self.rect.centery)
             sprites_balas_grandes.add(bala_g)
         else:
@@ -555,7 +560,7 @@ class DisparosDerecha(pg.sprite.Sprite):
     def update(self):
 
          # Si  jugador presiono (g) disparo Grande esta prendido[cambia la imagen]
-        if bool_disparo_grande == True:
+        if bool_activacionDisparo_Grande == True:
           self.image = pg.transform.scale(imagenes_disparosGrandes[0],(110,50))
           self.rect.x += 25 
         else:
@@ -579,7 +584,7 @@ class DisparosIzquierda(pg.sprite.Sprite):
     def update(self):
 
         # Si disparo Grande esta prendido
-        if bool_disparo_grande == True:
+        if bool_activacionDisparo_Grande == True:
           self.image = pg.transform.scale(imagenes_disparosGrandes[1],(110,50))
           self.rect.x -= 25 
         else:
@@ -602,7 +607,7 @@ class DisparosAbajo(pg.sprite.Sprite):
 
     def update(self):
         # Si disparo Grande esta prendido
-        if bool_disparo_grande == True:
+        if bool_activacionDisparo_Grande == True:
             self.image = pg.transform.scale(imagenes_disparosGrandes[3],(50,110))
             self.rect.y += 25
         else:
@@ -623,7 +628,7 @@ class DisparosArriba(pg.sprite.Sprite):
 
     def update(self):
         # Si disparo Grande esta prendido
-        if bool_disparo_grande == True:
+        if bool_activacionDisparo_Grande == True:
           self.image = pg.transform.scale(imagenes_disparosGrandes[2],(50,110))
           self.rect.y -= 25
         else:
@@ -653,7 +658,7 @@ class Muro(pg.sprite.Sprite):
 
         # SE PUEDE MEJPRARA CON EL CONTADOR BALA MURO_ PARA LA ELIMINACION CON LAS BALAS Y LA ELIMIACION CON LOS ENEMIGOS
         # el muro solo se actualiza cuando las balas van a romper los mueros
-        global contador_bala_muro
+        global contadorColicion_balaMuro
         pg.sprite.groupcollide(sprites_balas,sprites_muros,False,True, pg.sprite.collide_circle) # colision_balas_muro
         # if colision_bala_muro:
             # print("colsion bala muro")
@@ -735,10 +740,10 @@ class CajasEspeciales(pg.sprite.Sprite):
         self.radius = 8
 
     def update(self):
-        global bool_disparo_grande
+        global bool_activacionDisparo_Grande
         global bool_barril_explota
 
-        if bool_disparo_grande == True:
+        if bool_activacionDisparo_Grande == True:
             self.image = pg.transform.scale(imagenes_cajasEspeciales[0], (30,30))
             #print("se imprimio disparo grande")
         elif bool_barril_explota == True:
@@ -943,17 +948,17 @@ def inicializarJuego():
     global contadorFrames_exterminador_abajo
 
     # contadores para las coliciones
-    global contador_bala_muro
-    global contador_enemigo_muro
+    global contadorColicion_balaMuro
+    global contadorColicion_enemigoMuro
 
     #Variables boleanas para los cubos (premios)
-    global bool_disparo_grande
+    global bool_activacionDisparo_Grande
     global bool_barril_explota
 
     # contador para los objetos premios
-    global contador_balas_disparoGrande
-    global contador_barril_explota
-    global contador_muros
+    global contadorMunicionExterminador_balas_disparoGrande
+    global contadorMunicionExterminador_barril_explota
+    global contadorMunicionExterminador_muros
 
     # contadores boleanos para saber si poner musica
     global bool_musica_mordida_zombie_verde
@@ -962,7 +967,7 @@ def inicializarJuego():
     global bool_musica_dolor_jugador
 
     # variable para saber si el jugador se mueve
-    global moviendose
+    global movimientoExterminador_moviendose
 
     # mirar si el volumen es nulo
     global es_volumen_nulo
@@ -1061,9 +1066,9 @@ def inicializarJuego():
         for sprite_muro in sprites_muros:
             colision_balas_muros =  pg.sprite.spritecollide(sprite_muro, sprites_balas,False,pg.sprite.collide_circle)
             if colision_balas_muros:
-                contador_bala_muro += 1
-                if contador_bala_muro >= 100:
-                    contador_bala_muro = 0
+                contadorColicion_balaMuro += 1
+                if contadorColicion_balaMuro >= 100:
+                    contadorColicion_balaMuro = 0
                     sprite_muro.update() 
                     # poner puntuacion
                     puntuacion += 3
@@ -1072,9 +1077,9 @@ def inicializarJuego():
         for sprite_muro in sprites_muros:
             colision_balasGrandes_muro =  pg.sprite.spritecollide(sprite_muro,sprites_balas_grandes,False,pg.sprite.collide_circle)
             if colision_balasGrandes_muro:
-                contador_bala_muro += 45
-                if contador_bala_muro >= 100:
-                    contador_bala_muro = 0
+                contadorColicion_balaMuro += 45
+                if contadorColicion_balaMuro >= 100:
+                    contadorColicion_balaMuro = 0
                     sprite_muro.kill()
                     puntuacion += 3
 
@@ -1085,12 +1090,12 @@ def inicializarJuego():
                 # vamos a ver si el enemigo tiene colicion con alguno de los muros
                 colicion_muro_enemigo = pg.sprite.spritecollide(sprite_enemigo,sprites_muros,False,pg.sprite.collide_circle)
                 if colicion_muro_enemigo:      
-                    contador_enemigo_muro += 1
+                    contadorColicion_enemigoMuro += 1
                     sprite_enemigo.rect.x += -5
                     sprite_enemigo.rect.y += -5
-                    if contador_enemigo_muro >= 100:
+                    if contadorColicion_enemigoMuro >= 100:
                         sprite_muro.kill()
-                        contador_enemigo_muro = 0
+                        contadorColicion_enemigoMuro = 0
         
         # Coliciones del enemigo (zombie morado) con el muro
         for sprite_muro in sprites_muros:
@@ -1098,12 +1103,12 @@ def inicializarJuego():
                 # vamos a ver si el enemigo tiene colicion con alguno de los muros
                 colicion_muro_enemigo = pg.sprite.spritecollide(sprite_enemigo,sprites_muros,False,pg.sprite.collide_circle)
                 if colicion_muro_enemigo:      
-                    contador_enemigo_muro += 1
+                    contadorColicion_enemigoMuro += 1
                     sprite_enemigo.rect.x += +5
                     sprite_enemigo.rect.y += +6 # va a ir escalando un poco
-                    if contador_enemigo_muro >= 100: 
+                    if contadorColicion_enemigoMuro >= 100: 
                         sprite_muro.kill()
-                        contador_enemigo_muro = 0
+                        contadorColicion_enemigoMuro = 0
                         
                     
 
@@ -1224,9 +1229,9 @@ def inicializarJuego():
                 if segundos == 16 and tiempo_milisegundo < 1:
                     cajas_e.kill()
                 if colicion_jugador_cajasEspeciales:
-                    contador_balas_disparoGrande += (5 +(5*minutos))
+                    contadorMunicionExterminador_balas_disparoGrande += (5 +(5*minutos))
                     cajas_e.kill() # como el objeto es solo uno entonces se puede eliminar directamente
-                    # bool_disparo_grande = True <-- lo va a activar presionando una tecla
+                    # bool_activacionDisparo_Grande = True <-- lo va a activar presionando una tecla
                     # revisar es linea
         
         # CAJAS ESPECIALES (barril explota)
@@ -1241,9 +1246,9 @@ def inicializarJuego():
                 if segundos == 10 and tiempo_milisegundo < 1:
                     cajas_barril.kill()
                 if colicion_jugador_cajasEspeciales:
-                    contador_barril_explota += (3 + 3*minutos)
+                    contadorMunicionExterminador_barril_explota += (3 + 3*minutos)
                     cajas_barril.kill() # como el objeto es solo uno entonces se puede eliminar directamente
-                    # bool_disparo_grande = True <-- lo va a activar presionando una tecla
+                    # bool_activacionDisparo_Grande = True <-- lo va a activar presionando una tecla
                     # revisar es linea
         
         # CAJAS ESPECIALES (muros)
@@ -1258,9 +1263,9 @@ def inicializarJuego():
                 if segundos == 26 and tiempo_milisegundo < 1:
                     cajas_muro.kill()
                 if colicion_jugador_cajasEspeciales:
-                    contador_muros += (3 + 3*minutos)
+                    contadorMunicionExterminador_muros += (3 + 3*minutos)
                     cajas_muro.kill() # como el objeto es solo uno entonces se puede eliminar directamente
-                    # bool_disparo_grande = True <-- lo va a activar presionando una tecla
+                    # bool_activacionDisparo_Grande = True <-- lo va a activar presionando una tecla
                     # revisar es linea
 
         # SONIDO Y CONTROLADOR DE SONIDO
@@ -1321,15 +1326,15 @@ def inicializarJuego():
         #imprimir por pantalla a los atributos(balas, poderes, especiales, muros, etc)´
         font = pg.font.SysFont("Chiller", 20)
         pantalla.blit(pg.transform.scale(imagenes_disparosGrandes[1],(20,20)), (ANCHO-80, 90))
-        texto=  font.render(f'X {contador_balas_disparoGrande}', 1, NEGRO)
+        texto=  font.render(f'X {contadorMunicionExterminador_balas_disparoGrande}', 1, NEGRO)
         pantalla.blit(texto, (ANCHO -50, 90))
 
         pantalla.blit(pg.transform.scale(imagenes_cajasEspeciales[0],(20,20)), (ANCHO-80, 110))
-        texto=  font.render(f'X {contador_barril_explota}', 1, NEGRO)
+        texto=  font.render(f'X {contadorMunicionExterminador_barril_explota}', 1, NEGRO)
         pantalla.blit(texto, (ANCHO -50, 110))
 
         pantalla.blit(pg.transform.scale(imagenes_cajasEspeciales[2],(20,20)), (ANCHO-80, 130))
-        texto=  font.render(f'X {contador_muros}', 1, NEGRO)
+        texto=  font.render(f'X {contadorMunicionExterminador_muros}', 1, NEGRO)
         pantalla.blit(texto, (ANCHO -50, 130))
 
         # imprimir la puntuacion
