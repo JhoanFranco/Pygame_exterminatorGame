@@ -5,6 +5,7 @@ from  prueba_funcionMainProyecto import inicializarJuego
 
 ANCHO, ALTO = 1000,600
 FPS = 10
+NEGRO = (0,0,0)
 
 pg.init()
 screen = pg.display.set_mode((ANCHO,ALTO))
@@ -13,6 +14,7 @@ clock = pg.time.Clock()
 
 # Background
 Background = pg.transform.scale(pg.image.load("imagenes/fondoMenu.png"),(ANCHO,ALTO))
+
 
 # Font 
 fontHallowen = pg.font.Font("fuentes/HalloweenFont.otf", 50)
@@ -39,7 +41,8 @@ buttonExitSquare = pg.transform.scale(imageSquare,(250,80))
 buttonExit = Button(buttonExitSquare,(500,500),"Exit", fontHallowen, (0,0,0),(240,94,46))
 
 listButtonsMain = [buttonInstructions, buttonPlay, buttonOption, buttonExit]
-listMenuOption = [buttonBack]
+listButtonMenuOption = [buttonBack]
+listButtonMenuInstruction = [buttonBack]
 
 # menu de opciones 
 def menuOption():
@@ -49,33 +52,62 @@ def menuOption():
         screen.blit(Background2, (0,0)) #Whitout margin, poner el fondo 
 
         # por cada boton en la lista ponerlo en la pantalla
-        for button in listMenuOption:
+        for button in listButtonMenuOption:
             button.update(screen)
             button.updateColor(positionMouse) # para actualizar el color  si el mouse toca el boton 
 
         # para coger los eventos o click del mouse 
         for event in pg.event.get():
             if event.type == pg.MOUSEBUTTONDOWN:
-                for button in listMenuOption:
+                for button in listButtonMenuOption:
                     if button.checkoutPositionInside(positionMouse):
                         nombreButton = button.inputText
                         # para devolverse al menu principal 
                         if nombreButton == "Back":
                             principalMenu()
-           
+                   
+        # fontHallowen = pg.font.Font("fuentes/HalloweenFont.otf", 25) # crear fuente
+        # texto = fontHallowen.render(
+        #     """  
+        #     ↑ correr arriba el exterminador \n
+        #     ↓ correr abajo el exterminador \n
+        #     → correr derecha el exterminador \n
+        #     ← correr izquierda el exterminador \n
+
+        #     """
+        #     , 1, NEGRO) # imprimir el
+        # screen.blit(texto, (100, 100))
+
+
         pg.display.update() #actualizar el contenido de la pantalla
         clock.tick(60) #60fps
 
-    
-# def menuPlay():
-#     while True:
-#         positionMouse = pg.mouse.get_pos()
-#         Background2 = pg.transform.scale(pg.image.load("imagenes/fondoMenu2.png"),(ANCHO,ALTO))
-#         screen.blit(Background2, (0,0)) #Whitout margin
+def menuInstrucciones():
+    while True:
+        positionMouse = pg.mouse.get_pos() # obtener la posicion del mouse en la ventana de pygame 
+        # instrucciones
+        BackgroundInstrucciones = pg.transform.scale(pg.image.load("imagenes/Instrucciones.png"),(ANCHO,ALTO))
+        screen.blit(BackgroundInstrucciones, (0,0)) #Whitout margin, poner el fondo 
 
-#         for button in listMenuOption:
-#             button.update(screen)
-#             button.updateColor(positionMouse)
+        # por cada boton en la lista ponerlo en la pantalla
+        for button in listButtonMenuInstruction :
+            button.update(screen)
+            button.updateColor(positionMouse) # para actualizar el color  si el mouse toca el boton 
+
+        # para coger los eventos o click del mouse 
+        for event in pg.event.get():
+            if event.type == pg.MOUSEBUTTONDOWN:
+                for button in listButtonMenuInstruction:
+                    if button.checkoutPositionInside(positionMouse):
+                        nombreButton = button.inputText
+                        # para devolverse al menu principal 
+                        if nombreButton == "Back":
+                            principalMenu()
+
+        pg.display.update() #actualizar el contenido de la pantalla
+        clock.tick(60) #60fps
+
+
 
 
     
@@ -93,19 +125,23 @@ def principalMenu():
                 print("someone Click")
                 for button in listButtonsMain:
                     if button.checkoutPositionInside(positionMouse):
+                        # llamar al menu de opciones
                         if button.inputText == "Options":
                             menuOption()
                         # LLAMAR AL JUEGO 
                         elif button.inputText == "Play":
                             inicializarJuego()
                             print("llamar el juego")
+                        # llamar al menu de instrucciones     
+                        elif button.inputText == "Instructions":   
+                            menuInstrucciones()
                         # salir del juego 
                         elif button.inputText == "Exit":
                             print("salir del juego")
                             pg.quit()
 
         # poner otra vez los botones 
-        screen.blit(Background,(0,0)) # Whitout Margin in the background
+        screen.blit(Background,(0,0)) # Whitout Margin in the backgrounds
 
         for i in listButtonsMain:
             i.update(screen=screen)
