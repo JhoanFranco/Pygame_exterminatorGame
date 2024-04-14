@@ -111,14 +111,14 @@ imagen_sonido_nulo = pg.image.load("imagenes/sonido/silenciar_volumen.png")
 
 # variables direccion
 movimientoExterminador_izquierda = False
-derecha = False
-salto = False
-bajar = False
+movimientoExterminador_derecha = False
+movimientoExterminador_arriba = False
+movimientoExterminador_abajo = False
 
 #Variables para contar los frames
-cuentaSalto = 0
-cuentaPasos = 0
-cuentaBajar = 0
+contadorFrames_exterminador_arriba = 0
+contadorFrames_exterminador_DerIzq = 0
+contadorFrames_exterminador_abajo = 0
 
 # contadores para las coliciones
 contador_bala_muro = 0
@@ -166,13 +166,13 @@ class Jugador(pg.sprite.Sprite):
     def update(self): # hereda de la clase sprite Update
         # llamar las variables a utilizar
         global movimientoExterminador_izquierda
-        global derecha
-        global salto
-        global bajar
+        global movimientoExterminador_derecha
+        global movimientoExterminador_arriba
+        global movimientoExterminador_abajo
 
-        global cuentaBajar
-        global cuentaPasos
-        global cuentaSalto
+        global contadorFrames_exterminador_abajo
+        global contadorFrames_exterminador_DerIzq
+        global contadorFrames_exterminador_arriba
 
         global bool_disparo_grande
         global bool_barril_explota
@@ -186,38 +186,38 @@ class Jugador(pg.sprite.Sprite):
         
 
         # Restablecer el indice del sprite cuando se termine de hacer la animaciòn
-        # como hay seis frames para izq y derecha entonces los (cuentapasos) sirve para la los frames de derecha y movimientoExterminador_izquierda
-        if cuentaPasos >= 6:  # son 6 sprites 
-            cuentaPasos = 0
-        if cuentaSalto >= 3:  # son 3 sprites
-            cuentaSalto = 0
-        if cuentaBajar  >=3:  # son 3 sprites
-            cuentaBajar = 0
+        # como hay seis frames para izq y derecha entonces los (contadorFrames_exterminador_DerIzq) sirve para la los frames de derecha y movimientoExterminador_izquierda
+        if contadorFrames_exterminador_DerIzq >= 6:  # son 6 sprites 
+            contadorFrames_exterminador_DerIzq = 0
+        if contadorFrames_exterminador_arriba >= 3:  # son 3 sprites
+            contadorFrames_exterminador_arriba = 0
+        if contadorFrames_exterminador_abajo  >=3:  # son 3 sprites
+            contadorFrames_exterminador_abajo = 0
 
         # Cambiar la imagen si el jugador  la tecla correspondiente. Va antes porque primero se toca la tecla
-        if derecha == True and moviendose == True:
-            self.image = pg.transform.scale((imagenes_exterminador_correrDerecha[cuentaPasos]), (100,50))
-            cuentaPasos += 1
+        if movimientoExterminador_derecha == True and moviendose == True:
+            self.image = pg.transform.scale((imagenes_exterminador_correrDerecha[contadorFrames_exterminador_DerIzq]), (100,50))
+            contadorFrames_exterminador_DerIzq += 1
         elif movimientoExterminador_izquierda == True and moviendose == True:
-            self.image = pg.transform.scale((imagenes_exterminador_correrIzquierda[cuentaPasos]), (100,50))
-            cuentaPasos += 1
+            self.image = pg.transform.scale((imagenes_exterminador_correrIzquierda[contadorFrames_exterminador_DerIzq]), (100,50))
+            contadorFrames_exterminador_DerIzq += 1
         # para frames de movimiento vertical
-        elif salto == True and moviendose == True:
-            self.image = pg.transform.scale((imagenes_exterminador_correrArriba[cuentaSalto]), (100,50))
-            cuentaSalto += 1
-        elif bajar == True and moviendose == True:
-            self.image = pg.transform.scale((imagenes_exterminador_correrAbajo[cuentaBajar]),  (100,50))
-            cuentaBajar += 1
+        elif movimientoExterminador_arriba == True and moviendose == True:
+            self.image = pg.transform.scale((imagenes_exterminador_correrArriba[contadorFrames_exterminador_arriba]), (100,50))
+            contadorFrames_exterminador_arriba += 1
+        elif movimientoExterminador_abajo == True and moviendose == True:
+            self.image = pg.transform.scale((imagenes_exterminador_correrAbajo[contadorFrames_exterminador_abajo]),  (100,50))
+            contadorFrames_exterminador_abajo += 1
  
         # PARA CUANDO NO ESTA MOVIENDOSE
-        if derecha == True and moviendose == False:
+        if movimientoExterminador_derecha == True and moviendose == False:
             self.image = pg.transform.scale(pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_1.png"),(100,50))
         elif movimientoExterminador_izquierda == True and moviendose == False:
             self.image = pg.transform.scale(pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_izq_1.png"), (100,50))
         # para frames de movimiento vertical
-        elif salto == True and moviendose == False:
+        elif movimientoExterminador_arriba == True and moviendose == False:
             self.image = pg.transform.scale((imagenes_exterminador_correrArriba[1]), (100,50))
-        elif bajar == True and moviendose == False:
+        elif movimientoExterminador_abajo == True and moviendose == False:
             self.image = pg.transform.scale((imagenes_exterminador_correrAbajo[1]),  (100,50))
         # velocidad predeterminadad cada vuelta del bucle si no pulsas nada
 
@@ -233,31 +233,31 @@ class Jugador(pg.sprite.Sprite):
         if teclas[pg.K_a]:  # mover movimientoExterminador_movimientoExterminador_izquierda
             self.velocidad_x = -10
             movimientoExterminador_izquierda = True
-            derecha = False
-            salto = False
-            bajar = False
+            movimientoExterminador_derecha = False
+            movimientoExterminador_arriba = False
+            movimientoExterminador_abajo = False
             moviendose = True
-        elif teclas[pg.K_d]:  # mover derecha
+        elif teclas[pg.K_d]:  # mover movimientoExterminador_derecha
             self.velocidad_x = 10
-            derecha = True
+            movimientoExterminador_derecha = True
             movimientoExterminador_izquierda = False
-            salto = False
-            bajar = False
+            movimientoExterminador_arriba = False
+            movimientoExterminador_abajo = False
             moviendose = True
         # mover el personaje arr -abj
         elif teclas[pg.K_w]:
             self.velocidad_y = -10 # quita relleno
-            salto = True
-            bajar = False
+            movimientoExterminador_arriba = True
+            movimientoExterminador_abajo = False
             movimientoExterminador_izquierda = False
-            derecha = False
+            movimientoExterminador_derecha = False
             moviendose = True
         elif teclas[pg.K_s]:
             self.velocidad_y = 10 # pone relleno
-            bajar = True
-            salto = False
+            movimientoExterminador_abajo = True
+            movimientoExterminador_arriba = False
             movimientoExterminador_izquierda = False
-            derecha = False
+            movimientoExterminador_derecha = False
             moviendose = True
         # si no se toca ninguna tecla
         else:
@@ -279,17 +279,17 @@ class Jugador(pg.sprite.Sprite):
           bool_disparo_grande = False
 
         # DISPAROS
-        if teclas[pg.K_SPACE] and derecha == True:
+        if teclas[pg.K_SPACE] and movimientoExterminador_derecha == True:
            # EN VEZ DE CAMBIAR LA VELOCIDAD LLAMAMOS A QUE SE CREE UNA BALA POR EL METODO (DISPARO) 
            jugador.disparo_der() 
            EstaDisparando = True # musica
         elif teclas[pg.K_SPACE] and movimientoExterminador_izquierda == True:
            jugador.disparo_izq()
            EstaDisparando = True # musica
-        elif teclas[pg.K_SPACE] and bajar == True:
+        elif teclas[pg.K_SPACE] and movimientoExterminador_abajo == True:
            jugador.disparo_abj()
            EstaDisparando = True # musica
-        elif teclas[pg.K_SPACE] and salto == True:
+        elif teclas[pg.K_SPACE] and movimientoExterminador_arriba == True:
            jugador.disparo_Arrb()
            EstaDisparando = True # musica
         elif teclas[pg.K_SPACE]:
@@ -933,14 +933,14 @@ def inicializarJuego():
     # LLAMAR A LAS OTRAS VARIABLES GLOABALES 
     # variables direccion
     global movimientoExterminador_izquierda
-    global derecha
-    global salto
-    global bajar
+    global movimientoExterminador_derecha
+    global movimientoExterminador_arriba
+    global movimientoExterminador_abajo
 
     #Variables para contar los frames
-    global cuentaSalto
-    global cuentaPasos
-    global cuentaBajar
+    global contadorFrames_exterminador_arriba
+    global contadorFrames_exterminador_DerIzq
+    global contadorFrames_exterminador_abajo
 
     # contadores para las coliciones
     global contador_bala_muro
