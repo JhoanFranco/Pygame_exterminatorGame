@@ -1,7 +1,7 @@
 import pygame as pg
 import sys
 from button import Button
-from  prueba_funcionMainProyecto import inicializarJuego
+from  logicaJuego import inicializarJuego
 
 ANCHO, ALTO = 1000,600
 FPS = 10

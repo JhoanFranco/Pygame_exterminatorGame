@@ -18,10 +18,10 @@ VERDE = (0,255,0)
 # imagenes para el juego
 fondo = pg.transform.scale(pg.image.load("imagenes/fondo_cuidad_final.png"), (ANCHO,ALTO))
 
-quieto_imagenes = [pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_1.png")     
+imagenes_exterminador_quieto = [pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_1.png")     
          ]
 
-correr_derecha_imagenes = [pg.image.load("imagenes/exterminador/Gunner_Blue_Run_1.png"),
+imagenes_exterminador_correrDerecha = [pg.image.load("imagenes/exterminador/Gunner_Blue_Run_1.png"),
                   pg.image.load("imagenes/exterminador/Gunner_Blue_Run_2.png"),
                   pg.image.load("imagenes/exterminador/Gunner_Blue_Run_3.png"),
                   pg.image.load("imagenes/exterminador/Gunner_Blue_Run_4.png"),
@@ -29,7 +29,7 @@ correr_derecha_imagenes = [pg.image.load("imagenes/exterminador/Gunner_Blue_Run_
                   pg.image.load("imagenes/exterminador/Gunner_Blue_Run_6.png")
                  ]
 
-correr_izquierda_imagenes = [pg.image.load("imagenes/exterminador/Gunner_Blue_Run_izquierda_1.png"),
+imagenes_exterminador_correrIzquierda = [pg.image.load("imagenes/exterminador/Gunner_Blue_Run_izquierda_1.png"),
                     pg.image.load("imagenes/exterminador/Gunner_Blue_Run_izquierda_2.png"),
                     pg.image.load("imagenes/exterminador/Gunner_Blue_Run_izquierda_3.png"),
                     pg.image.load("imagenes/exterminador/Gunner_Blue_Run_izquierda_4.png"),
@@ -37,17 +37,17 @@ correr_izquierda_imagenes = [pg.image.load("imagenes/exterminador/Gunner_Blue_Ru
                     pg.image.load("imagenes/exterminador/Gunner_Blue_Run_izquierda_6.png")
                     ]
 
-salto_imagenes = [pg.image.load("imagenes/exterminador/Gunner_Blue_arriba_1.png"),
+imagenes_exterminador_correrArriba = [pg.image.load("imagenes/exterminador/Gunner_Blue_arriba_1.png"),
         pg.image.load("imagenes/exterminador/Gunner_Blue_arriba_2.png"),
         pg.image.load("imagenes/exterminador/Gunner_Blue_arriba_3.png")
         ]
 
-agacharse_imagenes = [pg.image.load("imagenes/exterminador/Gunner_Blue_abajo_1.png"),
+imagenes_exterminador_correrAbajo = [pg.image.load("imagenes/exterminador/Gunner_Blue_abajo_1.png"),
              pg.image.load("imagenes/exterminador/Gunner_Blue_abajo_2.png"),
              pg.image.load("imagenes/exterminador/Gunner_Blue_abajo_3.png")
             ]
 
-barra_vida = [pg.image.load("imagenes/barra_vida/barraVida_1.png"),
+imagenes_barraVida = [pg.image.load("imagenes/barra_vida/barraVida_1.png"),
              pg.image.load("imagenes/barra_vida/barraVida_2.png"),
              pg.image.load("imagenes/barra_vida/barraVida_3.png"),
              pg.image.load("imagenes/barra_vida/barraVida_4.png"),
@@ -55,62 +55,62 @@ barra_vida = [pg.image.load("imagenes/barra_vida/barraVida_1.png"),
              pg.image.load("imagenes/barra_vida/barraVida_6.png")
             ]
 
-cajas_especiales = [pg.image.load("imagenes/caja_barril_explota.png"),
+imagenes_cajasEspeciales = [pg.image.load("imagenes/caja_barril_explota.png"),
                     pg.image.load("imagenes/caja_disparo_grande.png"),
                     pg.image.load("imagenes/muro_blanco.png")
                     ]
 
-disparos_grandes =[ pg.image.load("imagenes/disparo_grande/disparo_grande_derecha.png"),
+imagenes_disparosGrandes =[ pg.image.load("imagenes/disparo_grande/disparo_grande_derecha.png"),
                     pg.image.load("imagenes/disparo_grande/disparo_grande_izquierda.png"),
                     pg.image.load("imagenes/disparo_grande/disparo_grande_arriba.png"),
                     pg.image.load("imagenes/disparo_grande/disparo_grande_abajo.png")
                 ]
 
-efectos_juego = [pg.image.load("imagenes/explosion_barril.png")] 
+imagenes_efectosJuego = [pg.image.load("imagenes/explosion_barril.png")] 
 
-zombie_der = [ pg.image.load("imagenes/zombies/zombies_verde_der_1.png"),
+imagenes_zombieVerde_correrDerecha = [ pg.image.load("imagenes/zombies/zombies_verde_der_1.png"),
                pg.image.load("imagenes/zombies/zombies_verde_der_2.png"),
                pg.image.load("imagenes/zombies/zombies_verde_der_3.png"),
                pg.image.load("imagenes/zombies/zombies_verde_der_4.png"),
                pg.image.load("imagenes/zombies/zombies_verde_der_5.png") 
             ]
 
-zombie_morder = [ pg.image.load("imagenes/zombies/zombies_verde_morder_1.png"),
+imagenes_zombieVerde_morderDerecha = [ pg.image.load("imagenes/zombies/zombies_verde_morder_1.png"),
                   pg.image.load("imagenes/zombies/zombies_verde_morder_2.png"),
                 ]
 
-zombie_morado_der = [ pg.image.load("imagenes/zombies/zombies_morado_der_1.png"),
+imagenes_zombieMorado_CorrerDerecha = [ pg.image.load("imagenes/zombies/zombies_morado_der_1.png"),
                   pg.image.load("imagenes/zombies/zombies_morado_der_2.png"),
                   pg.image.load("imagenes/zombies/zombies_morado_der_3.png"),
                   pg.image.load("imagenes/zombies/zombies_morado_der_4.png"),
                   pg.image.load("imagenes/zombies/zombies_morado_der_5.png")
                 ]
 
-zombie_morado_der_moder = [pg.image.load("imagenes/zombies/zombies_morado_der_morder_1.png"),
+imagenes_zombieMorado_MorderDerecha = [pg.image.load("imagenes/zombies/zombies_morado_der_morder_1.png"),
                             pg.image.load("imagenes/zombies/zombies_morado_der_morder_2.png")
                             ]
 
-zombie_morado_izq = [pg.image.load("imagenes/zombies/zombies_morado_izq_1.png"),
+imagenes_zombieMorado_correrIzquierda = [pg.image.load("imagenes/zombies/zombies_morado_izq_1.png"),
                     pg.image.load("imagenes/zombies/zombies_morado_izq_2.png"),
                     pg.image.load("imagenes/zombies/zombies_morado_izq_3.png"),
                     pg.image.load("imagenes/zombies/zombies_morado_izq_4.png"),
                     pg.image.load("imagenes/zombies/zombies_morado_izq_5.png")
                     ]
 
-zombie_morado_izq_morder = [pg.image.load("imagenes/zombies/zombies_morado_izq_morder_1.png"),
+imagenes_zombieMorado_morderIzquierda = [pg.image.load("imagenes/zombies/zombies_morado_izq_morder_1.png"),
                             pg.image.load("imagenes/zombies/zombies_morado_izq_morder_2.png")
                             ]
 
 
-sonido_bajar = pg.image.load("imagenes/sonido/bajar_volumen.png")
-sonido_subir= pg.image.load("imagenes/sonido/subir_volumen.png")
-sonido_maximo = pg.image.load("imagenes/sonido/maximo_volumen.png")
-sonido_nulo = pg.image.load("imagenes/sonido/silenciar_volumen.png")
+imagen_sonido_bajar = pg.image.load("imagenes/sonido/bajar_volumen.png")
+imagen_sonido_subir= pg.image.load("imagenes/sonido/subir_volumen.png")
+imagen_sonido_maximo = pg.image.load("imagenes/sonido/maximo_volumen.png")
+imagen_sonido_nulo = pg.image.load("imagenes/sonido/silenciar_volumen.png")
 
 #VARIABLES GLOBALES PARA EL FUNCIONAMIENTO DEL JUEGO 
 
 # variables direccion
-izquierda = False
+movimientoExterminador_izquierda = False
 derecha = False
 salto = False
 bajar = False
@@ -165,7 +165,7 @@ class Jugador(pg.sprite.Sprite):
 
     def update(self): # hereda de la clase sprite Update
         # llamar las variables a utilizar
-        global izquierda
+        global movimientoExterminador_izquierda
         global derecha
         global salto
         global bajar
@@ -186,7 +186,7 @@ class Jugador(pg.sprite.Sprite):
         
 
         # Restablecer el indice del sprite cuando se termine de hacer la animaciòn
-        # como hay seis frames para izq y derecha entonces los (cuentapasos) sirve para la los frames de derecha y izquierda
+        # como hay seis frames para izq y derecha entonces los (cuentapasos) sirve para la los frames de derecha y movimientoExterminador_izquierda
         if cuentaPasos >= 6:  # son 6 sprites 
             cuentaPasos = 0
         if cuentaSalto >= 3:  # son 3 sprites
@@ -196,29 +196,29 @@ class Jugador(pg.sprite.Sprite):
 
         # Cambiar la imagen si el jugador  la tecla correspondiente. Va antes porque primero se toca la tecla
         if derecha == True and moviendose == True:
-            self.image = pg.transform.scale((correr_derecha_imagenes[cuentaPasos]), (100,50))
+            self.image = pg.transform.scale((imagenes_exterminador_correrDerecha[cuentaPasos]), (100,50))
             cuentaPasos += 1
-        elif izquierda == True and moviendose == True:
-            self.image = pg.transform.scale((correr_izquierda_imagenes[cuentaPasos]), (100,50))
+        elif movimientoExterminador_izquierda == True and moviendose == True:
+            self.image = pg.transform.scale((imagenes_exterminador_correrIzquierda[cuentaPasos]), (100,50))
             cuentaPasos += 1
         # para frames de movimiento vertical
         elif salto == True and moviendose == True:
-            self.image = pg.transform.scale((salto_imagenes[cuentaSalto]), (100,50))
+            self.image = pg.transform.scale((imagenes_exterminador_correrArriba[cuentaSalto]), (100,50))
             cuentaSalto += 1
         elif bajar == True and moviendose == True:
-            self.image = pg.transform.scale((agacharse_imagenes[cuentaBajar]),  (100,50))
+            self.image = pg.transform.scale((imagenes_exterminador_correrAbajo[cuentaBajar]),  (100,50))
             cuentaBajar += 1
  
         # PARA CUANDO NO ESTA MOVIENDOSE
         if derecha == True and moviendose == False:
             self.image = pg.transform.scale(pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_1.png"),(100,50))
-        elif izquierda == True and moviendose == False:
+        elif movimientoExterminador_izquierda == True and moviendose == False:
             self.image = pg.transform.scale(pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_izq_1.png"), (100,50))
         # para frames de movimiento vertical
         elif salto == True and moviendose == False:
-            self.image = pg.transform.scale((salto_imagenes[1]), (100,50))
+            self.image = pg.transform.scale((imagenes_exterminador_correrArriba[1]), (100,50))
         elif bajar == True and moviendose == False:
-            self.image = pg.transform.scale((agacharse_imagenes[1]),  (100,50))
+            self.image = pg.transform.scale((imagenes_exterminador_correrAbajo[1]),  (100,50))
         # velocidad predeterminadad cada vuelta del bucle si no pulsas nada
 
         self.velocidad_x = 0
@@ -230,9 +230,9 @@ class Jugador(pg.sprite.Sprite):
         
 
         # mover el personaje izq - der
-        if teclas[pg.K_a]:  # mover izquierda
+        if teclas[pg.K_a]:  # mover movimientoExterminador_movimientoExterminador_izquierda
             self.velocidad_x = -10
-            izquierda = True
+            movimientoExterminador_izquierda = True
             derecha = False
             salto = False
             bajar = False
@@ -240,7 +240,7 @@ class Jugador(pg.sprite.Sprite):
         elif teclas[pg.K_d]:  # mover derecha
             self.velocidad_x = 10
             derecha = True
-            izquierda = False
+            movimientoExterminador_izquierda = False
             salto = False
             bajar = False
             moviendose = True
@@ -249,14 +249,14 @@ class Jugador(pg.sprite.Sprite):
             self.velocidad_y = -10 # quita relleno
             salto = True
             bajar = False
-            izquierda = False
+            movimientoExterminador_izquierda = False
             derecha = False
             moviendose = True
         elif teclas[pg.K_s]:
             self.velocidad_y = 10 # pone relleno
             bajar = True
             salto = False
-            izquierda = False
+            movimientoExterminador_izquierda = False
             derecha = False
             moviendose = True
         # si no se toca ninguna tecla
@@ -283,7 +283,7 @@ class Jugador(pg.sprite.Sprite):
            # EN VEZ DE CAMBIAR LA VELOCIDAD LLAMAMOS A QUE SE CREE UNA BALA POR EL METODO (DISPARO) 
            jugador.disparo_der() 
            EstaDisparando = True # musica
-        elif teclas[pg.K_SPACE] and izquierda == True:
+        elif teclas[pg.K_SPACE] and movimientoExterminador_izquierda == True:
            jugador.disparo_izq()
            EstaDisparando = True # musica
         elif teclas[pg.K_SPACE] and bajar == True:
@@ -316,7 +316,7 @@ class Jugador(pg.sprite.Sprite):
         colision_muros= pg.sprite.spritecollide(jugador,sprites_muros,False,pg.sprite.collide_circle)
         if colision_muros:
             # Va a morverlo contrario a la direccion que tomo
-            if teclas[pg.K_a]:  # mover izquierda
+            if teclas[pg.K_a]:  # mover movimientoExterminador_izquierda
                 self.rect.x += 10
             elif teclas[pg.K_d]:  # mover derecha
                 self.rect.x -= 10
@@ -460,7 +460,7 @@ class Enemigos_verdes(pg.sprite.Sprite):
 
         # cambiar imagen
 
-        self.image = pg.transform.scale((zombie_der[self.cuentaPasos_Zombie]), (50,60))
+        self.image = pg.transform.scale((imagenes_zombieVerde_correrDerecha[self.cuentaPasos_Zombie]), (50,60))
         self.cuentaPasos_Zombie += 1
         #print(self.cuentaPasos_Zombie)
 
@@ -525,7 +525,7 @@ class Enemigos_morado(pg.sprite.Sprite):
             self.cuentaPasos_Zombie = 0
 
         # cambiar imagen solo de correr
-        self.image = pg.transform.scale((zombie_morado_izq[self.cuentaPasos_Zombie]), (50,60))
+        self.image = pg.transform.scale((imagenes_zombieMorado_correrIzquierda[self.cuentaPasos_Zombie]), (50,60))
         self.cuentaPasos_Zombie += 1
         #print(self.cuentaPasos_Zombie)
 
@@ -556,7 +556,7 @@ class DisparosDerecha(pg.sprite.Sprite):
 
          # Si  jugador presiono (g) disparo Grande esta prendido[cambia la imagen]
         if bool_disparo_grande == True:
-          self.image = pg.transform.scale(disparos_grandes[0],(110,50))
+          self.image = pg.transform.scale(imagenes_disparosGrandes[0],(110,50))
           self.rect.x += 25 
         else:
             self.image = pg.transform.scale(pg.image.load("imagenes/disparo_der_izq.png"),(10,20))
@@ -580,7 +580,7 @@ class DisparosIzquierda(pg.sprite.Sprite):
 
         # Si disparo Grande esta prendido
         if bool_disparo_grande == True:
-          self.image = pg.transform.scale(disparos_grandes[1],(110,50))
+          self.image = pg.transform.scale(imagenes_disparosGrandes[1],(110,50))
           self.rect.x -= 25 
         else:
           self.image = pg.transform.scale(pg.image.load("imagenes/disparo_der_izq.png"),(10,20))
@@ -603,7 +603,7 @@ class DisparosAbajo(pg.sprite.Sprite):
     def update(self):
         # Si disparo Grande esta prendido
         if bool_disparo_grande == True:
-            self.image = pg.transform.scale(disparos_grandes[3],(50,110))
+            self.image = pg.transform.scale(imagenes_disparosGrandes[3],(50,110))
             self.rect.y += 25
         else:
             self.image = pg.transform.scale(pg.image.load("imagenes/disparo_der_izq.png"),(10,20))
@@ -624,7 +624,7 @@ class DisparosArriba(pg.sprite.Sprite):
     def update(self):
         # Si disparo Grande esta prendido
         if bool_disparo_grande == True:
-          self.image = pg.transform.scale(disparos_grandes[2],(50,110))
+          self.image = pg.transform.scale(imagenes_disparosGrandes[2],(50,110))
           self.rect.y -= 25
         else:
             self.image = pg.transform.scale(pg.image.load("imagenes/disparo_der_izq.png"),(10,20))
@@ -665,7 +665,7 @@ class Muro(pg.sprite.Sprite):
 class MuroExplosivo(pg.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image =  pg.transform.scale(cajas_especiales[0],(40,40))
+        self.image =  pg.transform.scale(imagenes_cajasEspeciales[0],(40,40))
         self.rect = self.image.get_rect()
         # queremos que el alto lo pongan instanciando la clase
         self.rect.bottom = y 
@@ -677,7 +677,7 @@ class MuroExplosivo(pg.sprite.Sprite):
         self.sonido_explosion = pg.mixer.Sound("musica/sonido-de-explosion-con-escombros.mp3")
     
     def update(self):
-        self.image =  pg.transform.scale(efectos_juego[0],(300,300))
+        self.image =  pg.transform.scale(imagenes_efectosJuego[0],(300,300))
         self.rect.x -= 100
         self.rect.y -= 70
         self.radius = 70
@@ -702,7 +702,7 @@ class MuroExplosivo(pg.sprite.Sprite):
 class BarraVida(pg.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pg.transform.scale(barra_vida[0],(100,100))
+        self.image = pg.transform.scale(imagenes_barraVida[0],(100,100))
         self.rect = self.image.get_rect()
         self.rect.x = ANCHO -100
         self.rect.y = 15
@@ -711,24 +711,24 @@ class BarraVida(pg.sprite.Sprite):
         global contador_golpes_jugador_porEnemigo
 
         if contador_golpes_jugador_porEnemigo >= 1 and  contador_golpes_jugador_porEnemigo < 11 :
-           self.image = pg.transform.scale(barra_vida[1],(100,100))
+           self.image = pg.transform.scale(imagenes_barraVida[1],(100,100))
         elif contador_golpes_jugador_porEnemigo >= 11 and  contador_golpes_jugador_porEnemigo < 21:
-           self.image = pg.transform.scale(barra_vida[2],(100,100))
+           self.image = pg.transform.scale(imagenes_barraVida[2],(100,100))
         elif contador_golpes_jugador_porEnemigo >= 21 and contador_golpes_jugador_porEnemigo < 31:
-           self.image = pg.transform.scale(barra_vida[3],(100,100))
+           self.image = pg.transform.scale(imagenes_barraVida[3],(100,100))
         elif contador_golpes_jugador_porEnemigo >= 31 and contador_golpes_jugador_porEnemigo  < 41:
-           self.image = pg.transform.scale(barra_vida[4],(100,100)) 
+           self.image = pg.transform.scale(imagenes_barraVida[4],(100,100)) 
         elif contador_golpes_jugador_porEnemigo  >= 41 and contador_golpes_jugador_porEnemigo < 51 :
-           self.image = pg.transform.scale(barra_vida[5],(100,100)) 
+           self.image = pg.transform.scale(imagenes_barraVida[5],(100,100)) 
         else:
-           self.image = pg.transform.scale(barra_vida[0],(100,100)) 
+           self.image = pg.transform.scale(imagenes_barraVida[0],(100,100)) 
         
 
 
 class CajasEspeciales(pg.sprite.Sprite):
     def __init__(self, numeroSprite):
         super().__init__()
-        self.image= pg.transform.scale(cajas_especiales[numeroSprite], (30,30))
+        self.image= pg.transform.scale(imagenes_cajasEspeciales[numeroSprite], (30,30))
         self.rect = self.image.get_rect()
         self.rect.y = 300
         self.rect.x = 400
@@ -739,10 +739,10 @@ class CajasEspeciales(pg.sprite.Sprite):
         global bool_barril_explota
 
         if bool_disparo_grande == True:
-            self.image = pg.transform.scale(cajas_especiales[0], (30,30))
+            self.image = pg.transform.scale(imagenes_cajasEspeciales[0], (30,30))
             #print("se imprimio disparo grande")
         elif bool_barril_explota == True:
-            self.image = pg.transform.scale(cajas_especiales[1], (30,30))
+            self.image = pg.transform.scale(imagenes_cajasEspeciales[1], (30,30))
 
 
 # Pantalla y clock 
@@ -932,7 +932,7 @@ def inicializarJuego():
     ######
     # LLAMAR A LAS OTRAS VARIABLES GLOABALES 
     # variables direccion
-    global izquierda
+    global movimientoExterminador_izquierda
     global derecha
     global salto
     global bajar
@@ -1131,7 +1131,7 @@ def inicializarJuego():
                 if cuentaMordidas_zombie_verde >= 2: # te puede morder mas de un zombi a la vez
                     cuentaMordidas_zombie_verde = 0
                 else:
-                    sprite_enemigo_verde.image = pg.transform.scale((zombie_morder[cuentaMordidas_zombie_verde]), (50,60))
+                    sprite_enemigo_verde.image = pg.transform.scale((imagenes_zombieVerde_morderDerecha[cuentaMordidas_zombie_verde]), (50,60))
                     cuentaMordidas_zombie_verde += 1
 
         # Cuando un zombie morado nos muerde
@@ -1148,7 +1148,7 @@ def inicializarJuego():
                 if cuentaMordidas_zombie_morado >= 2:
                     cuentaMordidas_zombie_morado= 0
                 else:
-                    sprite_enemigo_morado.image = pg.transform.scale((zombie_morado_izq_morder[cuentaMordidas_zombie_morado]), (50,60))
+                    sprite_enemigo_morado.image = pg.transform.scale((imagenes_zombieMorado_morderIzquierda[cuentaMordidas_zombie_morado]), (50,60))
                     cuentaMordidas_zombie_morado += 1
 
         # Coliciones de barriles explosivos con los ENEMIGOS VERDES
@@ -1280,34 +1280,34 @@ def inicializarJuego():
         #baja volumen
         if keys[pg.K_1] and volumen_actual > 0.0: # 0.0 volumen nulo
             pg.mixer.music.set_volume(volumen_actual - 0.1) # para colocar o cambiar el volumen
-            imagen = pg.transform.scale(sonido_bajar,(100,50))
+            imagen = pg.transform.scale(imagen_sonido_bajar,(100,50))
             pantalla.blit(imagen, (10,70))
 
         elif keys[pg.K_1] and volumen_actual == 0.0:
-            imagen = pg.transform.scale(sonido_bajar,(100,50))
+            imagen = pg.transform.scale(imagen_sonido_bajar,(100,50))
             pantalla.blit(imagen, (10,70))
         
         #sube volumen
         if keys[pg.K_2] and volumen_actual < 1.0: # 1.0 maximo volumen
             pg.mixer.music.set_volume(volumen_actual + 0.1)
-            imagen = pg.transform.scale(sonido_subir,(100,50))
+            imagen = pg.transform.scale(imagen_sonido_subir,(100,50))
             pantalla.blit(imagen,(10,70))
 
 
         elif keys[pg.K_2] and volumen_actual == 0.0 or (keys[pg.K_2] and volumen_actual == 1.0):
-            imagen = pg.transform.scale(sonido_subir,(100,50))
+            imagen = pg.transform.scale(imagen_sonido_subir,(100,50))
             pantalla.blit(imagen,(10,70))
 
         # volumen nulo
         elif keys[pg.K_3]:
             pg.mixer.music.set_volume(0.0)
-            imagen = pg.transform.scale(sonido_nulo,(100,50))
+            imagen = pg.transform.scale(imagen_sonido_nulo,(100,50))
             pantalla.blit(imagen,(10,70))
 
         # volumen maximo
         elif keys[pg.K_4]:
             pg.mixer.music.set_volume(1.0)
-            imagen = pg.transform.scale(sonido_maximo,(100,50))
+            imagen = pg.transform.scale(imagen_sonido_maximo,(100,50))
             pantalla.blit(imagen,(10,70))
 
         
@@ -1320,15 +1320,15 @@ def inicializarJuego():
 
         #imprimir por pantalla a los atributos(balas, poderes, especiales, muros, etc)´
         font = pg.font.SysFont("Chiller", 20)
-        pantalla.blit(pg.transform.scale(disparos_grandes[1],(20,20)), (ANCHO-80, 90))
+        pantalla.blit(pg.transform.scale(imagenes_disparosGrandes[1],(20,20)), (ANCHO-80, 90))
         texto=  font.render(f'X {contador_balas_disparoGrande}', 1, NEGRO)
         pantalla.blit(texto, (ANCHO -50, 90))
 
-        pantalla.blit(pg.transform.scale(cajas_especiales[0],(20,20)), (ANCHO-80, 110))
+        pantalla.blit(pg.transform.scale(imagenes_cajasEspeciales[0],(20,20)), (ANCHO-80, 110))
         texto=  font.render(f'X {contador_barril_explota}', 1, NEGRO)
         pantalla.blit(texto, (ANCHO -50, 110))
 
-        pantalla.blit(pg.transform.scale(cajas_especiales[2],(20,20)), (ANCHO-80, 130))
+        pantalla.blit(pg.transform.scale(imagenes_cajasEspeciales[2],(20,20)), (ANCHO-80, 130))
         texto=  font.render(f'X {contador_muros}', 1, NEGRO)
         pantalla.blit(texto, (ANCHO -50, 130))
 
