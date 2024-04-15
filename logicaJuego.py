@@ -116,7 +116,7 @@ movimientoExterminador_arriba = False
 movimientoExterminador_abajo = False
 
 # variable para saber si el jugador se mueve
-movimientoExterminador_moviendose = False
+exterminador_moviendose = False
 
 #Variables para contar los frames
 contadorFrames_exterminador_arriba = 0
@@ -132,7 +132,7 @@ bool_activacionDisparo_Grande = False
 bool_barril_explota = False
 
 # contador para las municiones del exterminador
-contadorMunicionExterminador_balas_disparoGrande = 3
+contadorMunicionExterminador_balas_disparoGrande = 30
 contadorMunicionExterminador_barril_explota = 3
 contadorMunicionExterminador_muros = 5
 
@@ -187,7 +187,7 @@ class Jugador(pg.sprite.Sprite):
 
         global EstaDisparando
         global bool_musica_dolor_jugador
-        global movimientoExterminador_moviendose
+        global exterminador_moviendose
         
 
         # Restablecer el indice del sprite cuando se termine de hacer la animaciòn
@@ -200,29 +200,29 @@ class Jugador(pg.sprite.Sprite):
             contadorFrames_exterminador_abajo = 0
 
         # Cambiar la imagen si el jugador  la tecla correspondiente. Va antes porque primero se toca la tecla
-        if movimientoExterminador_derecha == True and movimientoExterminador_moviendose == True:
+        if movimientoExterminador_derecha == True and exterminador_moviendose == True:
             self.image = pg.transform.scale((imagenes_exterminador_correrDerecha[contadorFrames_exterminador_DerIzq]), (100,50))
             contadorFrames_exterminador_DerIzq += 1
-        elif movimientoExterminador_izquierda == True and movimientoExterminador_moviendose == True:
+        elif movimientoExterminador_izquierda == True and exterminador_moviendose == True:
             self.image = pg.transform.scale((imagenes_exterminador_correrIzquierda[contadorFrames_exterminador_DerIzq]), (100,50))
             contadorFrames_exterminador_DerIzq += 1
         # para frames de movimiento vertical
-        elif movimientoExterminador_arriba == True and movimientoExterminador_moviendose == True:
+        elif movimientoExterminador_arriba == True and exterminador_moviendose == True:
             self.image = pg.transform.scale((imagenes_exterminador_correrArriba[contadorFrames_exterminador_arriba]), (100,50))
             contadorFrames_exterminador_arriba += 1
-        elif movimientoExterminador_abajo == True and movimientoExterminador_moviendose == True:
+        elif movimientoExterminador_abajo == True and exterminador_moviendose == True:
             self.image = pg.transform.scale((imagenes_exterminador_correrAbajo[contadorFrames_exterminador_abajo]),  (100,50))
             contadorFrames_exterminador_abajo += 1
  
         # PARA CUANDO NO ESTA MOVIENDOSE
-        if movimientoExterminador_derecha == True and movimientoExterminador_moviendose == False:
+        if movimientoExterminador_derecha == True and exterminador_moviendose == False:
             self.image = pg.transform.scale(pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_1.png"),(100,50))
-        elif movimientoExterminador_izquierda == True and movimientoExterminador_moviendose == False:
+        elif movimientoExterminador_izquierda == True and exterminador_moviendose == False:
             self.image = pg.transform.scale(pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_izq_1.png"), (100,50))
         # para frames de movimiento vertical
-        elif movimientoExterminador_arriba == True and movimientoExterminador_moviendose == False:
+        elif movimientoExterminador_arriba == True and exterminador_moviendose == False:
             self.image = pg.transform.scale((imagenes_exterminador_correrArriba[1]), (100,50))
-        elif movimientoExterminador_abajo == True and movimientoExterminador_moviendose == False:
+        elif movimientoExterminador_abajo == True and exterminador_moviendose == False:
             self.image = pg.transform.scale((imagenes_exterminador_correrAbajo[1]),  (100,50))
         # velocidad predeterminadad cada vuelta del bucle si no pulsas nada
 
@@ -241,14 +241,14 @@ class Jugador(pg.sprite.Sprite):
             movimientoExterminador_derecha = False
             movimientoExterminador_arriba = False
             movimientoExterminador_abajo = False
-            movimientoExterminador_moviendose = True
+            exterminador_moviendose = True
         elif teclas[pg.K_d]:  # mover movimientoExterminador_derecha
             self.velocidad_x = 10
             movimientoExterminador_derecha = True
             movimientoExterminador_izquierda = False
             movimientoExterminador_arriba = False
             movimientoExterminador_abajo = False
-            movimientoExterminador_moviendose = True
+            exterminador_moviendose = True
         # mover el personaje arr -abj
         elif teclas[pg.K_w]:
             self.velocidad_y = -10 # quita relleno
@@ -256,17 +256,17 @@ class Jugador(pg.sprite.Sprite):
             movimientoExterminador_abajo = False
             movimientoExterminador_izquierda = False
             movimientoExterminador_derecha = False
-            movimientoExterminador_moviendose = True
+            exterminador_moviendose = True
         elif teclas[pg.K_s]:
             self.velocidad_y = 10 # pone relleno
             movimientoExterminador_abajo = True
             movimientoExterminador_arriba = False
             movimientoExterminador_izquierda = False
             movimientoExterminador_derecha = False
-            movimientoExterminador_moviendose = True
+            exterminador_moviendose = True
         # si no se toca ninguna tecla
         else:
-            movimientoExterminador_moviendose = False 
+            exterminador_moviendose = False 
 
         # SI EL JUGADOR QUIERE DISPARAR
 
@@ -367,6 +367,7 @@ class Jugador(pg.sprite.Sprite):
         if bool_activacionDisparo_Grande == True:
             contadorMunicionExterminador_balas_disparoGrande -= 1
             bala_g = DisparosDerecha(self.rect.centerx, self.rect.centery)
+            bala_g.cambiarDisparoGrande()
             sprites_balas_grandes.add(bala_g)
         else:
             bala = DisparosDerecha(self.rect.centerx, self.rect.centery)
@@ -383,6 +384,7 @@ class Jugador(pg.sprite.Sprite):
         if bool_activacionDisparo_Grande == True:
             contadorMunicionExterminador_balas_disparoGrande -= 1
             bala_g = DisparosIzquierda(self.rect.centerx, self.rect.centery)
+            bala_g.cambiarDisparoGrande()
             sprites_balas_grandes.add(bala_g)
         else:
             bala = DisparosIzquierda(self.rect.centerx, self.rect.centery)
@@ -399,6 +401,7 @@ class Jugador(pg.sprite.Sprite):
         if bool_activacionDisparo_Grande == True:
             contadorMunicionExterminador_balas_disparoGrande -= 1
             bala_g = DisparosAbajo(self.rect.centerx, self.rect.centery)
+            bala_g.cambiarDisparoGrande()
             sprites_balas_grandes.add(bala_g)
         else:
             bala = DisparosAbajo(self.rect.centerx, self.rect.centery)
@@ -415,6 +418,7 @@ class Jugador(pg.sprite.Sprite):
         if bool_activacionDisparo_Grande == True:
             contadorMunicionExterminador_balas_disparoGrande -= 1
             bala_g = DisparosArriba(self.rect.centerx, self.rect.centery)
+            bala_g.cambiarDisparoGrande()
             sprites_balas_grandes.add(bala_g)
         else:
             bala = DisparosArriba(self.rect.centerx, self.rect.centery)
@@ -558,19 +562,14 @@ class DisparosDerecha(pg.sprite.Sprite):
         self.rect.right = x # se quiere que la posicion de X se ponga instanciando la clase
 
     def update(self):
-
-         # Si  jugador presiono (g) disparo Grande esta prendido[cambia la imagen]
-        if bool_activacionDisparo_Grande == True:
-          self.image = pg.transform.scale(imagenes_disparosGrandes[0],(110,50))
-          self.rect.x += 25 
-        else:
-            self.image = pg.transform.scale(pg.image.load("imagenes/disparo_der_izq.png"),(10,20))
-            # Velocidad de la bala
-            self.rect.x += 25 
-
+        # Velocidad de la bala
+        self.rect.x += 25 
         #print(self.rect.left) # llega hasta 1020 entonces si borra la bala
         if self.rect.left >= ANCHO:
             self.kill()
+
+    def cambiarDisparoGrande(self):
+        self.image = pg.transform.scale(imagenes_disparosGrandes[0],(110,50))
 
 
 class DisparosIzquierda(pg.sprite.Sprite):
@@ -582,18 +581,13 @@ class DisparosIzquierda(pg.sprite.Sprite):
         self.rect.left = x 
 
     def update(self):
-
-        # Si disparo Grande esta prendido
-        if bool_activacionDisparo_Grande == True:
-          self.image = pg.transform.scale(imagenes_disparosGrandes[1],(110,50))
-          self.rect.x -= 25 
-        else:
-          self.image = pg.transform.scale(pg.image.load("imagenes/disparo_der_izq.png"),(10,20))
-          # Velocidad de la bala
-          self.rect.x -= 25 
-        
+        # Velocidad de la bala
+        self.rect.x -= 25 
         if self.rect.left <= 0:
             self.kill()
+    
+    def cambiarDisparoGrande(self):
+        self.image = pg.transform.scale(imagenes_disparosGrandes[1],(110,50))
 
 
 
@@ -606,17 +600,15 @@ class DisparosAbajo(pg.sprite.Sprite):
         self.rect.x = x -5
 
     def update(self):
-        # Si disparo Grande esta prendido
-        if bool_activacionDisparo_Grande == True:
-            self.image = pg.transform.scale(imagenes_disparosGrandes[3],(50,110))
-            self.rect.y += 25
-        else:
-            self.image = pg.transform.scale(pg.image.load("imagenes/disparo_der_izq.png"),(10,20))
-            # Velocidad de la bala
-            self.rect.y += 25
-
+        # velocidad de la bala
+        self.rect.y += 25
         if self.rect.bottom >= ALTO:
             self.kill()
+
+    def cambiarDisparoGrande(self):
+        self.image = pg.transform.scale(imagenes_disparosGrandes[3],(50,110))
+            
+
 
 class DisparosArriba(pg.sprite.Sprite):
     def __init__(self, x, y):
@@ -625,19 +617,17 @@ class DisparosArriba(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.y = y 
         self.rect.x = x-3
-
+    
     def update(self):
-        # Si disparo Grande esta prendido
-        if bool_activacionDisparo_Grande == True:
-          self.image = pg.transform.scale(imagenes_disparosGrandes[2],(50,110))
-          self.rect.y -= 25
-        else:
-            self.image = pg.transform.scale(pg.image.load("imagenes/disparo_der_izq.png"),(10,20))
-            # Velocidad de la bala
-            self.rect.y -= 25
+        self.rect.y -= 25
 
         if self.rect.top <= 0:
             self.kill()
+    
+    def cambiarDisparoGrande(self):
+        self.image = pg.transform.scale(imagenes_disparosGrandes[2],(50,110))
+            
+
 
 
 class Muro(pg.sprite.Sprite):
@@ -967,7 +957,7 @@ def inicializarJuego():
     global bool_musica_dolor_jugador
 
     # variable para saber si el jugador se mueve
-    global movimientoExterminador_moviendose
+    global exterminador_moviendose
 
     # mirar si el volumen es nulo
     global es_volumen_nulo
