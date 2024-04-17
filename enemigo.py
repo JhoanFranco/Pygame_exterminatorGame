@@ -44,8 +44,8 @@ class Enemigos_verdes(pg.sprite.Sprite):
         self.rect.y = random.randrange(0,ALTO)
 
         # velocidad del personaje(inicial)
-        self.velocidad_x = 5
-        self.velocidad_y = 5
+        self.velocidad_x = 4
+        self.velocidad_y = 4
 
         # contar Frames
         self.framesEnemigo_corriendo = 0 #contar los frames del enemigo corriendo
@@ -57,14 +57,28 @@ class Enemigos_verdes(pg.sprite.Sprite):
         # sonido Mordida
         self.sonido_mordida =  pg.mixer.Sound("musica/mordida.mp3")
 
+        # vida del enemigo
+        self.vidaEnemigo = 4
 
     def update(self):
+        # importar el controlador de sonido para saber que poner 
+        from main import controladorSonido
+        es_volumen_nulo = controladorSonido.es_volumen_nulo
+
+
         self.rect.y += self.velocidad_x
         self.rect.x += self.velocidad_y
 
         if self.estarMordiendo:
             self.cambioImagenMordida()
-            self.sonido_mordida()
+            print("zombie verde volumen nulo: " + f"{es_volumen_nulo}")
+            # si el volumen_nulo es igual a false 
+            if es_volumen_nulo ==  False: 
+                controladorSonido.configurarVolumenSonidosDeacuerdoAControlador()
+                self.sonido_mordida.play()
+            else:
+                pass 
+            self.cambiarEstadoEstarMordiendo(False)
         else:   
             # control_sprites
             if self.framesEnemigo_corriendo >= 5:  # son 5 sprites 
@@ -85,6 +99,10 @@ class Enemigos_verdes(pg.sprite.Sprite):
             self.rect.bottom = ALTO
         # no hay izquierdo porque estos enemigos solo se mueven en posicion(positiva)
 
+    # si no tiene vida, borrar sprite
+        if self.vidaEnemigo <=0:
+            self.kill()    
+
          
     def sonidoMordida(self): 
         self.sonido_mordida.play()
@@ -92,13 +110,18 @@ class Enemigos_verdes(pg.sprite.Sprite):
     def cambioImagenMordida(self):
         # control_sprites
         if self.framesEnemigo_mordiendo >= 2:  # son 2 sprites 
-            self.framesEnemigo_corriendo = 0
+            self.framesEnemigo_mordiendo = 0
 
         self.image = pg.transform.scale((imagenes_zombieVerde_morderDerecha[self.framesEnemigo_mordiendo]), (50,60))
         self.framesEnemigo_mordiendo += 1
     
-    def dejarDeMorder(self):
-        self.estarMordiendo = False
+    def cambiarEstadoEstarMordiendo(self, value:bool):
+        self.estarMordiendo = value
+
+    def quitarVida(self, dano:int):
+        self.vidaEnemigo -= dano
+
+
     
 
 
@@ -129,15 +152,25 @@ class Enemigos_morado(pg.sprite.Sprite):
         # poner musica
         self.sonido_mordida =  pg.mixer.Sound("musica/mordida.mp3")
 
+        # vida del enemigo
+        self.vidaEnemigo = 4
 
     def update(self):
-         
+        # importar el controlador de sonido para saber que poner 
+        from main import controladorSonido
+        es_volumen_nulo = controladorSonido.es_volumen_nulo
+
         self.rect.y -= self.velocidad_x
         self.rect.x -= self.velocidad_y
 
         if self.estarMordiendo:
             self.cambioImagenMordida()
-            self.sonido_mordida()
+            # si el volumen_nulo es igual a false 
+            if es_volumen_nulo ==  False: 
+                self.sonido_mordida.play()
+            else:
+                pass 
+            self.cambiarEstadoEstarMordiendo(False)
         else:   
             # control_sprites
             if self.framesEnemigo_corriendo >= 5:  # son 5 sprites 
@@ -160,6 +193,10 @@ class Enemigos_morado(pg.sprite.Sprite):
         if self.rect.top < 0:
             self.rect.bottom = ALTO
 
+        # si no tiene vida, borrar sprite
+        if self.vidaEnemigo <=0:
+            self.kill()    
+
 
     def sonidoMordida(self): 
         self.sonido_mordida.play()
@@ -167,10 +204,14 @@ class Enemigos_morado(pg.sprite.Sprite):
     def cambioImagenMordida(self):
         # control_sprites
         if self.framesEnemigo_mordiendo >= 2:  # son 2 sprites 
-            self.framesEnemigo_corriendo = 0
+            self.framesEnemigo_mordiendo = 0
 
         self.image = pg.transform.scale((imagenes_zombieMorado_morderIzquierda[self.framesEnemigo_mordiendo]), (50,60))
         self.framesEnemigo_mordiendo += 1
     
-    def dejarDeMorder(self):
-        self.estarMordiendo = False
+    def cambiarEstadoEstarMordiendo(self, value:bool):
+        self.estarMordiendo = value
+
+    def quitarVida(self, dano:int):
+        self.vidaEnemigo -= dano
+    

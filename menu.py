@@ -154,6 +154,6 @@ def principalMenu():
         clock.tick(60) #60fps
 
 
-principalMenu()
+#principalMenu()
 
 

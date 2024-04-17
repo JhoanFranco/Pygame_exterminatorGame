@@ -56,7 +56,7 @@ class MuroExplosivo(pg.sprite.Sprite):
         # pg.draw.circle(self.image, ROJO,self.rect.center,self.radius,10)
         self.sonido_explosion = pg.mixer.Sound("musica/sonido-de-explosion-con-escombros.mp3")
     
-    def update(self, pantalla, sprites_muros_explosivos, sprites_enemigos,  es_volumen_nulo):
+    def update(self, pantalla, sprites_muros_explosivos, sprites_enemigos,  es_volumen_nulo=False):
         self.image =  pg.transform.scale(imagenes_efectosJuego[0],(300,300))
         self.rect.x -= 100
         self.rect.y -= 70

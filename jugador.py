@@ -85,6 +85,9 @@ class Jugador(pg.sprite.Sprite):
         self.bool_musica_dolor_jugador = False
         self.es_volumen_nulo = es_volumen_nulo
 
+        # vida del jugador 
+        self.vidaJuagador = 51
+
 
     def update(self, jugador, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group, sprites_muros:pg.sprite.Group, sprites_muros_explosivos:pg.sprite.Group): # hereda de la clase sprite Update
 
@@ -244,11 +247,12 @@ class Jugador(pg.sprite.Sprite):
 
         #PONER MUSICA DE DOLOR
         if self.es_volumen_nulo == False:
-            if bool_musica_dolor_jugador == True:
+            if self.bool_musica_dolor_jugador == True:
                 self.sonido_dolor.play()
-                bool_musica_dolor_jugador = False
+                self.bool_musica_dolor_jugador = False
             else:
                 pass
+        
 
     def cambiarVolumenNulo(self, bandera:bool):
         self.es_volumen_nulo = bandera
@@ -323,3 +327,11 @@ class Jugador(pg.sprite.Sprite):
         muro_explosivo = MuroExplosivo(self.rect.centerx + 5, self.rect.centery)
         sprites_muros_explosivos.add(muro_explosivo)
 
+    def quitarVida(self, dano:int):
+        self.vidaJuagador -= dano
+        
+    def activarMusica_dolorjugador(self):
+        self.bool_musica_dolor_jugador = True
+
+            
+            

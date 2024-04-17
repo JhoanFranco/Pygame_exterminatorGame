@@ -25,19 +25,33 @@ class BarraVida(pg.sprite.Sprite):
 
 
     def update(self):
-        if self.contadorVida >= 1 and  self.contadorVida < 11 :
-           self.image = pg.transform.scale(imagenes_barraVida[1],(100,100))
-        elif self.contadorVida >= 11 and  self.contadorVida < 21:
-           self.image = pg.transform.scale(imagenes_barraVida[2],(100,100))
-        elif self.contadorVida >= 21 and self.contadorVida < 31:
-           self.image = pg.transform.scale(imagenes_barraVida[3],(100,100))
-        elif self.contadorVida >= 31 and self.contadorVida  < 41:
-           self.image = pg.transform.scale(imagenes_barraVida[4],(100,100)) 
-        elif self.contadorVida  >= 41 and self.contadorVida < 51 :
-           self.image = pg.transform.scale(imagenes_barraVida[5],(100,100)) 
-        else:
-           self.image = pg.transform.scale(imagenes_barraVida[0],(100,100)) 
-    
+      #   if self.contadorVida >= 1 and  self.contadorVida < 11 :
+      #      self.image = pg.transform.scale(imagenes_barraVida[1],(100,100))
+      #   elif self.contadorVida >= 11 and  self.contadorVida < 21:
+      #      self.image = pg.transform.scale(imagenes_barraVida[2],(100,100))
+      #   elif self.contadorVida >= 21 and self.contadorVida < 31:
+      #      self.image = pg.transform.scale(imagenes_barraVida[3],(100,100))
+      #   elif self.contadorVida >= 31 and self.contadorVida  < 41:
+      #      self.image = pg.transform.scale(imagenes_barraVida[4],(100,100)) 
+      #   elif self.contadorVida  >= 41 and self.contadorVida < 51 :
+      #      self.image = pg.transform.scale(imagenes_barraVida[5],(100,100)) 
+      #   else:
+      #      self.image = pg.transform.scale(imagenes_barraVida[0],(100,100)) 
+
+      if self.contadorVida >= 1 and  self.contadorVida < 11 :
+         self.image = pg.transform.scale(imagenes_barraVida[5],(100,100)) 
+      elif self.contadorVida >= 11 and  self.contadorVida < 21:
+         self.image = pg.transform.scale(imagenes_barraVida[4],(100,100)) 
+      elif self.contadorVida >= 21 and self.contadorVida < 31:
+         self.image = pg.transform.scale(imagenes_barraVida[3],(100,100))
+      elif self.contadorVida >= 31 and self.contadorVida  < 41:
+         self.image = pg.transform.scale(imagenes_barraVida[2],(100,100)) 
+      elif self.contadorVida  >= 41 and self.contadorVida < 51 :
+         self.image = pg.transform.scale(imagenes_barraVida[1],(100,100)) 
+      else:
+         self.image = pg.transform.scale(imagenes_barraVida[0],(100,100)) 
+   
+   
     def quitarVida(self, danoGolpe:int):
        self.contadorVida -= danoGolpe
         
