@@ -307,7 +307,7 @@ def inicializarJuego():
         colision_jugador_enemigos = pg.sprite.spritecollide(jugador, sprites_enemigos, False,pg.sprite.collide_circle)
         if colision_jugador_enemigos:
             jugador.quitarVida(1)
-            jugador.activarMusica_dolorjugador # poner musica en la clase
+            jugador.activarMusica_dolorjugador() # poner musica en la clase
             # BARRA VIDA
             barra_vidaObjeto.quitarVida(1)
             if jugador.vidaJuagador <= 0:
@@ -418,7 +418,7 @@ def inicializarJuego():
                     cajas_barril.kill() # como el objeto es solo uno entonces se puede eliminar directamente
                     # bool_activacionDisparo_Grande = True <-- lo va a activar presionando una tecla
                     # revisar es linea
-        
+         
         # CAJAS ESPECIALES (muros)
         if segundos >= 20 and segundos < 27: # va durar la caja 5 segundos en pantalla(10-15 =5)
             if segundos == 20 and tiempo_milisegundo < 1:

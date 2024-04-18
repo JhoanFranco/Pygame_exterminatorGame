@@ -1,6 +1,7 @@
 import pygame as pg
 import random
 from main import ANCHO,ALTO, VERDE
+from controladorSonido import ControladorSonido 
 
 imagenes_zombieVerde_correrDerecha = [ 
     pg.image.load("imagenes/zombies/zombies_verde_der_1.png"),
@@ -74,8 +75,7 @@ class Enemigos_verdes(pg.sprite.Sprite):
             print("zombie verde volumen nulo: " + f"{es_volumen_nulo}")
             # si el volumen_nulo es igual a false 
             if es_volumen_nulo ==  False: 
-                controladorSonido.configurarVolumenSonidosDeacuerdoAControlador()
-                self.sonido_mordida.play()
+                self.sonidoMordida(controladorSonido) # aqui ya cambia el volumen y hace el play 
             else:
                 pass 
             self.cambiarEstadoEstarMordiendo(False)
@@ -104,7 +104,8 @@ class Enemigos_verdes(pg.sprite.Sprite):
             self.kill()    
 
          
-    def sonidoMordida(self): 
+    def sonidoMordida(self, controlador:ControladorSonido): 
+        self.sonido_mordida.set_volume(controlador.volumen_actual)
         self.sonido_mordida.play()
 
     def cambioImagenMordida(self):
@@ -167,7 +168,7 @@ class Enemigos_morado(pg.sprite.Sprite):
             self.cambioImagenMordida()
             # si el volumen_nulo es igual a false 
             if es_volumen_nulo ==  False: 
-                self.sonido_mordida.play()
+                self.sonidoMordida(controladorSonido)
             else:
                 pass 
             self.cambiarEstadoEstarMordiendo(False)
@@ -198,7 +199,8 @@ class Enemigos_morado(pg.sprite.Sprite):
             self.kill()    
 
 
-    def sonidoMordida(self): 
+    def sonidoMordida(self, controlador:ControladorSonido): 
+        self.sonido_mordida.set_volume(controlador.volumen_actual)
         self.sonido_mordida.play()
 
     def cambioImagenMordida(self):

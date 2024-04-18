@@ -1,5 +1,6 @@
 import pygame as pg
 from  main import VERDE, ANCHO, ALTO
+from controladorSonido import ControladorSonido 
 
 
 imagenes_Muro = [
@@ -57,6 +58,9 @@ class MuroExplosivo(pg.sprite.Sprite):
         self.sonido_explosion = pg.mixer.Sound("musica/sonido-de-explosion-con-escombros.mp3")
     
     def update(self, pantalla, sprites_muros_explosivos, sprites_enemigos,  es_volumen_nulo=False):
+        ## controlador de sonido importacion
+        from main import controladorSonido 
+
         self.image =  pg.transform.scale(imagenes_efectosJuego[0],(300,300))
         self.rect.x -= 100
         self.rect.y -= 70
@@ -71,10 +75,14 @@ class MuroExplosivo(pg.sprite.Sprite):
         #buscamos los sprites que le esten pegando al muro
 
         #sonido
-        if es_volumen_nulo == False:
-            self.sonido_explosion.play()
+        if controladorSonido.es_volumen_nulo == False:
+            self.sonidoExplosion_barrilExplota(controladorSonido)
 
         for sprite_muroExplosivo in sprites_muros_explosivos:
                 colicion_muroExplosivo_enemigo = pg.sprite.spritecollide(sprite_muroExplosivo,sprites_enemigos,True,pg.sprite.collide_circle)
             # la colicion es sin radio para que coja todo el sprite
             
+
+    def sonidoExplosion_barrilExplota(self, controladorS:ControladorSonido):
+        self.sonido_explosion.set_volume(controladorS.volumen_actual)
+        self.sonido_explosion.play()

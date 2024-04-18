@@ -30,7 +30,6 @@ class ControladorSonido(pg.sprite.Sprite):
             pg.mixer.music.set_volume(self.volumen_actual - 0.1) # para colocar o cambiar el volumen
             imagen = pg.transform.scale(imagen_sonido_bajar,(100,50))
             pantalla.blit(imagen, (10,70))
-
         elif keys[pg.K_1] and self.volumen_actual == 0.0:
             imagen = pg.transform.scale(imagen_sonido_bajar,(100,50))
             pantalla.blit(imagen, (10,70))
@@ -40,12 +39,9 @@ class ControladorSonido(pg.sprite.Sprite):
             pg.mixer.music.set_volume(self.volumen_actual + 0.1)
             imagen = pg.transform.scale(imagen_sonido_subir,(100,50))
             pantalla.blit(imagen,(10,70))
-
-
         elif keys[pg.K_2] and self.volumen_actual == 0.0 or (keys[pg.K_2] and self.volumen_actual == 1.0):
             imagen = pg.transform.scale(imagen_sonido_subir,(100,50))
             pantalla.blit(imagen,(10,70))
-
         # volumen nulo
         elif keys[pg.K_3]:
             pg.mixer.music.set_volume(0.0)

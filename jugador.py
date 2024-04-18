@@ -2,6 +2,7 @@ import pygame as pg
 from main import ANCHO, ALTO
 from disparo import DisparosArriba,DisparosIzquierda,DisparosDerecha,DisparosAbajo
 from muro import Muro, MuroExplosivo
+from controladorSonido import ControladorSonido 
 
 
 imagenes_exterminador_quieto = [
@@ -83,13 +84,15 @@ class Jugador(pg.sprite.Sprite):
 
         # bandera sonido
         self.bool_musica_dolor_jugador = False
-        self.es_volumen_nulo = es_volumen_nulo
 
         # vida del jugador 
         self.vidaJuagador = 51
 
 
     def update(self, jugador, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group, sprites_muros:pg.sprite.Group, sprites_muros_explosivos:pg.sprite.Group): # hereda de la clase sprite Update
+        ## importar controlador de sonido
+        from main import controladorSonido
+        es_volumen_nulo = controladorSonido.es_volumen_nulo
 
         ## control_sprites
         # como hay seis frames para izq y derecha entonces los (contadorFrames_exterminador_DerIzq) sirve para la los frames de derecha y movimientoExterminador_izquierda
@@ -185,19 +188,19 @@ class Jugador(pg.sprite.Sprite):
         # DISPAROS
         if teclas[pg.K_SPACE] and self.movimientoExterminador_derecha == True:
            # EN VEZ DE CAMBIAR LA VELOCIDAD LLAMAMOS A QUE SE CREE UNA BALA POR EL METODO (DISPARO) 
-           self.disparo_der(sprites_balas_grandes, sprites_balas) 
+           self.disparo_der(controladorSonido, sprites_balas_grandes, sprites_balas) 
            self.EstaDisparando = True # musica
         elif teclas[pg.K_SPACE] and self.movimientoExterminador_izquierda == True:
-           self.disparo_izq(sprites_balas_grandes, sprites_balas)
+           self.disparo_izq(controladorSonido, sprites_balas_grandes, sprites_balas)
            self.EstaDisparando = True # musica
         elif teclas[pg.K_SPACE] and self.movimientoExterminador_abajo == True:
-           self.disparo_abj(sprites_balas_grandes, sprites_balas)
+           self.disparo_abj(controladorSonido, sprites_balas_grandes, sprites_balas)
            self.EstaDisparando = True # musica
         elif teclas[pg.K_SPACE] and self.movimientoExterminador_arriba == True:
-           self.disparo_Arrb(sprites_balas_grandes, sprites_balas)
+           self.disparo_Arrb(controladorSonido, sprites_balas_grandes, sprites_balas)
            self.EstaDisparando = True # musica
         elif teclas[pg.K_SPACE]:
-            self.disparo_der(sprites_balas_grandes, sprites_balas)
+            self.disparo_der(controladorSonido, sprites_balas_grandes, sprites_balas)
             self.EstaDisparando = True # musica
         
         #MUROS
@@ -246,21 +249,26 @@ class Jugador(pg.sprite.Sprite):
             self.rect.bottom = ALTO
 
         #PONER MUSICA DE DOLOR
-        if self.es_volumen_nulo == False:
-            if self.bool_musica_dolor_jugador == True:
-                self.sonido_dolor.play()
+        if self.bool_musica_dolor_jugador == True:
+            if es_volumen_nulo == False:
+                self.sonidoDolorjugador(controladorSonido)
                 self.bool_musica_dolor_jugador = False
             else:
                 pass
         
 
-    def cambiarVolumenNulo(self, bandera:bool):
-        self.es_volumen_nulo = bandera
+    def sonidoDolorjugador(self, controlador:ControladorSonido):
+        self.sonido_dolor.set_volume(controlador.volumen_actual)
+        self.sonido_dolor.play()
 
-    def disparo_der(self, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group):
+    def sonidoDisparo(self, controlador:ControladorSonido):
+        self.sonido_disparo.set_volume(controlador.volumen_actual)
+        self.sonido_disparo.play()
+
+    def disparo_der(self, controladorS:ControladorSonido,sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group):
         # ver si el volumen es nulo
-        if self.es_volumen_nulo == False:
-            self.sonido_disparo.play()
+        if controladorS.es_volumen_nulo == False:
+            self.sonidoDisparo(controladorS)
 
         # para cuado se llama a una bala pero (DISPARO GRANDE) esta activado
         if self.bool_activacionDisparo_Grande == True:
@@ -273,10 +281,10 @@ class Jugador(pg.sprite.Sprite):
             sprites_balas.add(bala)
 
 
-    def disparo_izq(self, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group):
+    def disparo_izq(self, controladorS:ControladorSonido,sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group):
         # ver si el volumen es nulo
-        if self.es_volumen_nulo == False:
-            self.sonido_disparo.play()
+        if controladorS.es_volumen_nulo == False:
+            self.sonidoDisparo(controladorS)
 
         if self.bool_activacionDisparo_Grande:
             self.contadorMunicionExterminador_balas_disparoGrande -= 1
@@ -287,10 +295,10 @@ class Jugador(pg.sprite.Sprite):
             bala = DisparosIzquierda(self.rect.centerx, self.rect.centery)
             sprites_balas.add(bala)
 
-    def disparo_abj(self, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group):
+    def disparo_abj(self, controladorS:ControladorSonido, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group):
         # ver si el volumen es nulo
-        if self.es_volumen_nulo == False:
-            self.sonido_disparo.play()
+        if controladorS.es_volumen_nulo == False:
+            self.sonidoDisparo(controladorS)
 
         if self.bool_activacionDisparo_Grande == True:
             self.contadorMunicionExterminador_balas_disparoGrande -= 1
@@ -301,10 +309,10 @@ class Jugador(pg.sprite.Sprite):
             bala = DisparosAbajo(self.rect.centerx, self.rect.centery)
             sprites_balas.add(bala)
 
-    def disparo_Arrb(self, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group):
+    def disparo_Arrb(self, controladorS:ControladorSonido, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group):
         # ver si el volumen es nulo
-        if self.es_volumen_nulo == False:
-            self.sonido_disparo.play()
+        if controladorS.es_volumen_nulo == False:
+            self.sonidoDisparo(controladorS)
 
         if self.bool_activacionDisparo_Grande == True:
             self.contadorMunicionExterminador_balas_disparoGrande -= 1
@@ -329,9 +337,11 @@ class Jugador(pg.sprite.Sprite):
 
     def quitarVida(self, dano:int):
         self.vidaJuagador -= dano
-        
+    
     def activarMusica_dolorjugador(self):
         self.bool_musica_dolor_jugador = True
+        
+
 
             
             
