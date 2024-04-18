@@ -1,4 +1,6 @@
 import pygame as pg
+from main import ANCHO, ALTO
+import random
 
 imagenes_cajasEspeciales = [
     pg.image.load("imagenes/caja_barril_explota.png"),
@@ -35,4 +37,13 @@ class CajasEspeciales(pg.sprite.Sprite):
     
     def eliminarCaja(self):
         self.kill()
+
+    def cambiarPosicionRandom(self):
+        # Elegir un valor aleatorio para la coordenida y dentro del rango [0, ALTO)
+        y = random.randint(100, ALTO - 100)
+        x = random.randint(100, ANCHO - 100)
+        self.rect.y = y
+        self.rect.x = x 
+        
+
 

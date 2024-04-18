@@ -3,6 +3,7 @@ from main import ANCHO, ALTO
 from disparo import DisparosArriba,DisparosIzquierda,DisparosDerecha,DisparosAbajo
 from muro import Muro, MuroExplosivo
 from controladorSonido import ControladorSonido 
+from teclado import TecladoExterminador1
 
 
 imagenes_exterminador_quieto = [
@@ -40,10 +41,11 @@ imagenes_exterminador_correrAbajo = [
 ]
 
 
-class Jugador(pg.sprite.Sprite):
-    def __init__(self, contadorMunicion_BarrilExplota:int, contadorMunicion_Muros:int, contadorMunicion_DisparoGrande:int,  es_volumen_nulo=False):
+class Jugador(pg.sprite.Sprite):                                                                                            ### cambiar 
+    def __init__(self, contadorMunicion_BarrilExplota:int, contadorMunicion_Muros:int, contadorMunicion_DisparoGrande:int, teclado:TecladoExterminador1 ):
         super().__init__() # heredar de la sub_clase Sprite
         self.image = pg.transform.scale(pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_1.png"),(100,50))
+        
         self.rect = self.image.get_rect() # obtener el rectangulo del sprite, es decir, de la imagen.  ojo get_rect crea un rectangulo con esa imagen
         
         # poner un radio para hacer las coliciones mas precisas
@@ -87,6 +89,9 @@ class Jugador(pg.sprite.Sprite):
 
         # vida del jugador 
         self.vidaJuagador = 51
+
+        # teclado 
+        self.teclado = teclado
 
 
     def update(self, jugador, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group, sprites_muros:pg.sprite.Group, sprites_muros_explosivos:pg.sprite.Group): # hereda de la clase sprite Update
@@ -137,14 +142,14 @@ class Jugador(pg.sprite.Sprite):
         teclas = pg.key.get_pressed()
 
         # mover el personaje izq - der
-        if teclas[pg.K_a]:  # mover movimientoExterminador_movimientoExterminador_izquierda
+        if teclas[self.teclado.escogerTecla(self.teclado.tecla_movIzquierda[0])]:  # mover movimientoExterminador_movimientoExterminador_izquierda
             self.velocidad_x = -10
             self.movimientoExterminador_izquierda = True
             self.movimientoExterminador_derecha = False
             self.movimientoExterminador_arriba = False
             self.movimientoExterminador_abajo = False
             self.exterminador_moviendose = True
-        elif teclas[pg.K_d]:  # mover movimientoExterminador_derecha
+        elif teclas[self.teclado.escogerTecla(self.teclado.tecla_movDerecha[0])]:  # mover movimientoExterminador_derecha
             self.velocidad_x = 10
             self.movimientoExterminador_derecha = True
             self.movimientoExterminador_izquierda = False
@@ -152,14 +157,14 @@ class Jugador(pg.sprite.Sprite):
             self.movimientoExterminador_abajo = False
             self.exterminador_moviendose = True
         # mover el personaje arr -abj
-        elif teclas[pg.K_w]:
+        elif teclas[self.teclado.escogerTecla(self.teclado.tecla_movArriba[0])]:   # Tecla arriba
             self.velocidad_y = -10 # quita relleno
             self.movimientoExterminador_arriba = True
             self.movimientoExterminador_abajo = False
             self.movimientoExterminador_izquierda = False
             self.movimientoExterminador_derecha = False
             self.exterminador_moviendose = True
-        elif teclas[pg.K_s]:
+        elif teclas[self.teclado.escogerTecla(self.teclado.tecla_movAbajo[0])]:     # Tecla mov abajo                                                    # Tecla abajo
             self.velocidad_y = 10 # pone relleno
             self.movimientoExterminador_abajo = True
             self.movimientoExterminador_arriba = False
@@ -174,40 +179,40 @@ class Jugador(pg.sprite.Sprite):
 
         # Disparo grande va primero porque si es verdad pasa algo en las funciones disparo_der, izq...
 
-        # si el jugador toca la tecla g y ya hizo colicion con una caja especial
-        if teclas[pg.K_g] and self.contadorMunicionExterminador_balas_disparoGrande > 0:
-            self.bool_activacionDisparo_Grande = True
-        # si toca la tecla pero no tiene balas grandes
-        elif teclas[pg.K_t]:
-            self.bool_activacionDisparo_Grande = False
-        
+        # si el jugador toca la tecla g y tiene balas grandes  ACTIVA PODER o DESACTIVA
+        if teclas[self.teclado.escogerTecla(self.teclado.tecla_activarPoderDisparoGrande[0])] and self.contadorMunicionExterminador_balas_disparoGrande > 0: #Tecla activacion BalaGrande
+            if self.bool_activacionDisparo_Grande == True:
+                self.bool_activacionDisparo_Grande = False
+            else:
+                self.bool_activacionDisparo_Grande = True
+
         # para desactivar el poder por si solo
         if self.contadorMunicionExterminador_balas_disparoGrande <= 0:
             self.bool_activacionDisparo_Grande = False
 
         # DISPAROS
-        if teclas[pg.K_SPACE] and self.movimientoExterminador_derecha == True:
+        if teclas[self.teclado.escogerTecla(self.teclado.tecla_colocarBala[0])] and self.movimientoExterminador_derecha == True:
            # EN VEZ DE CAMBIAR LA VELOCIDAD LLAMAMOS A QUE SE CREE UNA BALA POR EL METODO (DISPARO) 
            self.disparo_der(controladorSonido, sprites_balas_grandes, sprites_balas) 
            self.EstaDisparando = True # musica
-        elif teclas[pg.K_SPACE] and self.movimientoExterminador_izquierda == True:
+        elif teclas[self.teclado.escogerTecla(self.teclado.tecla_colocarBala[0])] and self.movimientoExterminador_izquierda == True:
            self.disparo_izq(controladorSonido, sprites_balas_grandes, sprites_balas)
            self.EstaDisparando = True # musica
-        elif teclas[pg.K_SPACE] and self.movimientoExterminador_abajo == True:
+        elif teclas[self.teclado.escogerTecla(self.teclado.tecla_colocarBala[0])] and self.movimientoExterminador_abajo == True:
            self.disparo_abj(controladorSonido, sprites_balas_grandes, sprites_balas)
            self.EstaDisparando = True # musica
-        elif teclas[pg.K_SPACE] and self.movimientoExterminador_arriba == True:
+        elif teclas[self.teclado.escogerTecla(self.teclado.tecla_colocarBala[0])] and self.movimientoExterminador_arriba == True:
            self.disparo_Arrb(controladorSonido, sprites_balas_grandes, sprites_balas)
            self.EstaDisparando = True # musica
-        elif teclas[pg.K_SPACE]:
+        elif teclas[self.teclado.escogerTecla(self.teclado.tecla_colocarBala[0])]:
             self.disparo_der(controladorSonido, sprites_balas_grandes, sprites_balas)
             self.EstaDisparando = True # musica
         
         #MUROS
-        if teclas[pg.K_f] and self.contadorMunicionExterminador_muros > 0:
+        if teclas[self.teclado.escogerTecla(self.teclado.tecla_colocarPoderMuro[0])] and self.contadorMunicionExterminador_muros > 0:
             self.crear_muro(sprites_muros)
             self.contadorMunicionExterminador_muros -= 1
-        if teclas[pg.K_r] and self.contadorMunicionExterminador_barril_explota > 0:
+        if teclas[self.teclado.escogerTecla(self.teclado.tecla_colocarPoderMurosExplosivos[0])] and self.contadorMunicionExterminador_barril_explota > 0:
             self.crear_muro_exposivo(sprites_muros_explosivos)
             self.contadorMunicionExterminador_barril_explota -= 1
         else:
@@ -222,14 +227,14 @@ class Jugador(pg.sprite.Sprite):
         colision_muros= pg.sprite.spritecollide(jugador,sprites_muros,False,pg.sprite.collide_circle)
         if colision_muros:
             # Va a morverlo contrario a la direccion que tomo
-            if teclas[pg.K_a]:  # mover movimientoExterminador_izquierda
+            if teclas[self.teclado.escogerTecla(self.teclado.tecla_movIzquierda[0])]:  # mover movimientoExterminador_izquierda
                 self.rect.x += 10
-            elif teclas[pg.K_d]:  # mover derecha
+            elif teclas[self.teclado.escogerTecla(self.teclado.tecla_movDerecha[0])]:  # mover derecha
                 self.rect.x -= 10
             # mover el personaje arr -abj
-            elif teclas[pg.K_w]:
+            elif teclas[self.teclado.escogerTecla(self.teclado.tecla_movArriba[0])]:  # mover arriba
                 self.rect.y += 10 # pone relleno
-            elif teclas[pg.K_s]:
+            elif teclas[self.teclado.escogerTecla(self.teclado.tecla_movAbajo[0])]:   # mover abajo
                 self.rect.y -= 10 # quita relleno
             else:
                 pass
@@ -340,7 +345,16 @@ class Jugador(pg.sprite.Sprite):
     
     def activarMusica_dolorjugador(self):
         self.bool_musica_dolor_jugador = True
-        
+    
+    def AumentarMunicionEspecial(self, numeroSpriteCajaEspecial:int, cantidadAumentar:int):
+        if(numeroSpriteCajaEspecial == 0): # barriles explosivos
+            self.contadorMunicionExterminador_barril_explota += cantidadAumentar 
+        elif(numeroSpriteCajaEspecial == 1): # disparo Grande
+            self.contadorMunicionExterminador_balas_disparoGrande += cantidadAumentar       
+        elif(numeroSpriteCajaEspecial == 2): # muros
+            self.contadorMunicionExterminador_muros += cantidadAumentar     
+        else:
+            pass  
 
 
             

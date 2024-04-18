@@ -178,6 +178,8 @@ class TecladoExterminador1(Teclado):
         indicelistTeclasUtilizadas_todas_claves = self.listTeclasUtilizadas_todas_claves.index(teclaVieja)
         self.listTeclasUtilizadas_todas_claves[indicelistTeclasUtilizadas_todas_claves] = teclaNueva
         
+    def escogerTecla(self, teclaClave:str):
+        return(self.dicTodasLasTeclas[teclaClave])
     
 
 ## TECLADO EXTERMINADOR 2
@@ -276,7 +278,9 @@ class TecladoExterminador2(Teclado):
         # listTeclasUtilizadas_todas_claves
         indicelistTeclasUtilizadas_todas_claves = self.listTeclasUtilizadas_todas_claves.index(teclaVieja)
         self.listTeclasUtilizadas_todas_claves[indicelistTeclasUtilizadas_todas_claves] = teclaNueva
-        
+    
+    def escogerTecla(self, teclaClave:str):
+        return(self.dicTodasLasTeclas[teclaClave])
     
 
 

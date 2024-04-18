@@ -1,7 +1,7 @@
 import pygame as pg
 import sys
 from button import Button
-from  logicaJuego import inicializarJuego
+from  logicaJuegoAnterior import inicializarJuego
 
 ANCHO, ALTO = 1000,600
 FPS = 10
@@ -109,8 +109,6 @@ def menuInstrucciones():
 
 
 
-
-    
 # menu principal del juego 
 def principalMenu():
     while True:

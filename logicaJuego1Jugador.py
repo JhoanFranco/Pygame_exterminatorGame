@@ -8,6 +8,7 @@ from barraVida import BarraVida
 from jugador import Jugador
 from  enemigo import Enemigos_morado, Enemigos_verdes
 from cajasEspeciales import CajasEspeciales
+from teclado import TecladoExterminador1
 
 from cronometro import Cronometro
 from controladorSonido import ControladorSonido
@@ -121,8 +122,9 @@ def inicializarJuego():
     sprites_cajas_especiales = pg.sprite.Group()
     sprites_muros_explosivos = pg.sprite.Group()
 
-    # Crear objetos y añadirlos al grupo de sprite
-    jugador = Jugador(contadorMunicion_DisparoGrande= 5, contadorMunicion_BarrilExplota= 5 , contadorMunicion_Muros=5)
+    # Crear objetos y añadirlos al grupo de sprite jugador, teclado, barravida 
+    tecladoJuador1 = TecladoExterminador1()
+    jugador = Jugador(contadorMunicion_DisparoGrande= 5, contadorMunicion_BarrilExplota= 5 , contadorMunicion_Muros=5, teclado=tecladoJuador1)
     barra_vidaObjeto = BarraVida()
 
     # Añadir los objeto a los grupos de sprites
@@ -165,10 +167,6 @@ def inicializarJuego():
     # creacion de cronometro
     cronometro = Cronometro()
     cronometro.iniciar()
-
-    
-
-  
 
     
     #BUCLE DEL JUEGO         
@@ -388,7 +386,6 @@ def inicializarJuego():
         if segundos >= 10 and segundos < 17: # va durar la caja 5 segundos en pantalla(10-15 =5)
             if segundos == 10 and tiempo_milisegundo < 1:
                 cajas_e = CajasEspeciales(1) # como es caja de disparo grande sprite(1)
-                ## print("aparecio caja")
                 sprites_cajas_especiales.add(cajas_e)
             else:
                 sprites_cajas_especiales.draw(pantalla)
@@ -406,7 +403,6 @@ def inicializarJuego():
         if segundos >= 5 and segundos < 11: # va durar la caja 5 segundos en pantalla(10-15 =5)
             if segundos == 5 and tiempo_milisegundo < 1:
                 cajas_barril = CajasEspeciales(0) # como es caja de barriles sprite(0)
-                print("aparecio caja")
                 sprites_cajas_especiales.add(cajas_barril)
             else:
                 sprites_cajas_especiales.draw(pantalla)

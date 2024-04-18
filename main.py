@@ -1,6 +1,6 @@
 import pygame as pg
-from menu import principalMenu
-from logicaJuego import inicializarJuego
+# from menu import principalMenu
+# from logicaJuegoAnterior import inicializarJuego
 from controladorSonido import ControladorSonido
 
 # Tamaño pantalla
