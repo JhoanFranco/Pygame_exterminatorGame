@@ -65,6 +65,12 @@ puntuacion = None
 # contador para el numero de enemigos
 contador_poner_enemigos = None
 
+def numeroJugador(jugador:Jugador):
+    if jugador.bool_esJugadorDos == False:
+        return(1)
+    else:
+        return(2)
+
 def inicializarJuego():
     # INICIALIZAR LAS VARIABLES PARA EL FUNCIONAMIENTO DEL JUEGO 
     # Pantalla y clock , es volumen nulo  
@@ -439,7 +445,7 @@ def inicializarJuego():
                
         # CAJAS ESPECIALES (entre segundos 35 y 40)
         if segundos >= 35 and segundos < 40: 
-            if segundos == 10 and tiempo_milisegundo < 1:
+            if segundos == 35 and tiempo_milisegundo < 1:
                 caja_esp1 = CajasEspeciales(0) # como es caja de barriles explosivos(0)
                 caja_esp2 = CajasEspeciales(2) # como es caja de muros sprite(2)
                 caja_esp1.cambiarPosicionRandom()
@@ -468,7 +474,7 @@ def inicializarJuego():
          
      # CAJAS ESPECIALES (entre segundos 56 y 58)
         if segundos >= 56 and segundos < 59: 
-            if segundos == 10 and tiempo_milisegundo < 1:
+            if segundos == 56 and tiempo_milisegundo < 1:
                 caja_esp1 = CajasEspeciales(1) # como es caja de barriles explosivos(1)
                 caja_esp2 = CajasEspeciales(2) # como es caja de muros sprite(2)
                 caja_esp1.cambiarPosicionRandom()
@@ -492,6 +498,36 @@ def inicializarJuego():
                     
                 # si el tiempo se paso borrar las cajas 
                 if segundos == 59 and tiempo_milisegundo < 1:
+                    for caja_espx in sprites_cajas_especiales:
+                        caja_espx.eliminarCaja()
+        
+        # caja especial de vida y revivir
+        if segundos >= 30 and segundos < 35 and minutos >= 0: 
+            if segundos == 30 and tiempo_milisegundo < 1:
+                caja_esp1 = CajasEspeciales(3) # como es caja de vida
+                caja_esp1.cambiarPosicionRandom()
+                sprites_cajas_especiales.add(caja_esp1)
+            else:
+                # dibujar las cajas 
+                sprites_cajas_especiales.draw(pantalla)
+        
+                for caja_espx in sprites_cajas_especiales:
+                    for jugadorx in sprites_jugador:
+                        colicionJugador_cajaEsp = pg.sprite.collide_circle(jugadorx, caja_espx)
+                        if colicionJugador_cajaEsp:
+                            numeroCaja = caja_espx.numeroCaja
+                            cantidadVidaAumentar = (minutos*5) + 10 
+                            # aumentar la municion del jugador
+                            jugadorx.AumentarMunicionEspecial(numeroCaja, cantidadVidaAumentar)
+                            # borrar la caja 
+                            caja_espx.eliminarCaja()
+                            # Cambiar el contador a la Barra de vida
+                            for barraVidax in sprites_barra_vida:
+                                if barraVidax.barraVida_Numerojugador == numeroJugador(jugadorx):
+                                    barraVidax.aumentarVida(cantidadVidaAumentar)
+                    
+                # si el tiempo se paso borrar las cajas 
+                if segundos == 35 and tiempo_milisegundo < 1:
                     for caja_espx in sprites_cajas_especiales:
                         caja_espx.eliminarCaja()
 
@@ -586,8 +622,3 @@ def inicializarJuego():
 
 inicializarJuego()
 
-def numeroJugador(jugador:Jugador):
-    if jugador.bool_esJugadorDos == False:
-        return(1)
-    else:
-        return(2)

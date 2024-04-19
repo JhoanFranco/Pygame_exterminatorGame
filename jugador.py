@@ -363,7 +363,14 @@ class Jugador(pg.sprite.Sprite):                                                
         elif(numeroSpriteCajaEspecial == 1): # disparo Grande
             self.contadorMunicionExterminador_balas_disparoGrande += cantidadAumentar       
         elif(numeroSpriteCajaEspecial == 2): # muros
-            self.contadorMunicionExterminador_muros += cantidadAumentar     
+            self.contadorMunicionExterminador_muros += cantidadAumentar 
+        elif(numeroSpriteCajaEspecial == 3): #   
+            if (self.vidaJuagador + cantidadAumentar) >= 51:
+                self.vidaJuagador = 51
+            else:
+                self.vidaJuagador += cantidadAumentar
+        
+
         else:
             pass  
         

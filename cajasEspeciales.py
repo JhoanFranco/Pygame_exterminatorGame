@@ -5,7 +5,8 @@ import random
 imagenes_cajasEspeciales = [
     pg.image.load("imagenes/caja_barril_explota.png"),
     pg.image.load("imagenes/caja_disparo_grande.png"),
-    pg.image.load("imagenes/muro_blanco.png")
+    pg.image.load("imagenes/muro_blanco.png"),
+    pg.image.load("imagenes/caja_vida.png")
 ]
 
 

@@ -53,6 +53,11 @@ class BarraVida(pg.sprite.Sprite):
       self.rect.x = ANCHO -100 -x
       self.rect.y = y
 
+   def aumentarVida(self, cantidadAumentar):   
+      if (self.contadorVida + cantidadAumentar) >= 51:
+            self.contadorVida = 51
+      else:
+            self.contadorVida += cantidadAumentar
 
 
    def changColor(self, image, color):
