@@ -1,5 +1,5 @@
 import pygame as pg
-from main import ANCHO, ALTO
+from main import ANCHO, ALTO,ROJO
 from disparo import DisparosArriba,DisparosIzquierda,DisparosDerecha,DisparosAbajo
 from muro import Muro, MuroExplosivo
 from controladorSonido import ControladorSonido 
@@ -42,10 +42,9 @@ imagenes_exterminador_correrAbajo = [
 
 
 class Jugador(pg.sprite.Sprite):                                                                                            ### cambiar 
-    def __init__(self, contadorMunicion_BarrilExplota:int, contadorMunicion_Muros:int, contadorMunicion_DisparoGrande:int, teclado:TecladoExterminador1 ):
+    def __init__(self, contadorMunicion_BarrilExplota:int, contadorMunicion_Muros:int, contadorMunicion_DisparoGrande:int, teclado:TecladoExterminador1, esJugadorDos=False ):
         super().__init__() # heredar de la sub_clase Sprite
         self.image = pg.transform.scale(pg.image.load("imagenes/exterminador/Gunner_Blue_Idle_1.png"),(100,50))
-        
         self.rect = self.image.get_rect() # obtener el rectangulo del sprite, es decir, de la imagen.  ojo get_rect crea un rectangulo con esa imagen
         
         # poner un radio para hacer las coliciones mas precisas
@@ -92,6 +91,13 @@ class Jugador(pg.sprite.Sprite):                                                
 
         # teclado 
         self.teclado = teclado
+
+        # ver si es jugador 2
+        self.bool_esJugadorDos = esJugadorDos
+        self.colorRGBJuagor2 = (19,12,74)
+        # cambiar color imagen jugador 2
+        if self.bool_esJugadorDos:
+            self.image = self.changColor(self.image, self.colorRGBJuagor2)
 
 
     def update(self, jugador, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group, sprites_muros:pg.sprite.Group, sprites_muros_explosivos:pg.sprite.Group): # hereda de la clase sprite Update
@@ -261,6 +267,11 @@ class Jugador(pg.sprite.Sprite):                                                
             else:
                 pass
         
+        # CAMBIAR COLOR DE SPRITE SI EL JUGADOR ES 2
+        if self.bool_esJugadorDos:
+            self.image = self.changColor(self.image, self.colorRGBJuagor2)
+
+        
 
     def sonidoDolorjugador(self, controlador:ControladorSonido):
         self.sonido_dolor.set_volume(controlador.volumen_actual)
@@ -355,7 +366,21 @@ class Jugador(pg.sprite.Sprite):                                                
             self.contadorMunicionExterminador_muros += cantidadAumentar     
         else:
             pass  
+        
+    def BorrarSprite(self):
+        self.kill()
 
+    def changColor(self, image, color):
+        # Convierte la imagen en una superficie con transparencia
+        image = image.convert_alpha()
+        # Crea una copia de la imagen original
+        final_image = image.copy()
+        # Crea una superficie temporal para aplicar el color
+        colored_surface = pg.Surface(image.get_size(), pg.SRCALPHA)
+        # Rellena la superficie con el color dado
+        colored_surface.fill((color[0], color[1], color[2], 0))
+        # Mezcla la superficie coloreada con la imagen original
+        final_image.blit(colored_surface, (0, 0), special_flags=pg.BLEND_RGBA_ADD)
+        
+        return final_image
 
-            
-            

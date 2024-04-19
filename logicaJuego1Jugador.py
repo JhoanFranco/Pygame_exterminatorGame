@@ -373,7 +373,7 @@ def inicializarJuego():
         pantalla.blit(fondo,(0,0)) # imagen, (0,0) no margenes
 
         # DIBUJAR los grupos de sprites
-        sprites_jugador.draw(pantalla) 
+        sprites_jugador.draw(pantalla)
         sprites_enemigos.draw(pantalla)
         sprites_balas.draw(pantalla) 
         sprites_muros.draw(pantalla)

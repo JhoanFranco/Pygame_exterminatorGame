@@ -128,13 +128,16 @@ def inicializarJuego():
     # Crear objetos y añadirlos al grupo de sprite jugador, teclado, barravida 
     tecladoJuador1 = TecladoExterminador1()
     tecladoJuador2 = TecladoExterminador2()
+
     jugador1 = Jugador(contadorMunicion_DisparoGrande= 5, contadorMunicion_BarrilExplota= 5 , contadorMunicion_Muros=5, teclado=tecladoJuador1)
-    jugador2 = Jugador(contadorMunicion_DisparoGrande= 5, contadorMunicion_BarrilExplota= 5 , contadorMunicion_Muros=5, teclado=tecladoJuador2)
-    barra_vidaObjeto = BarraVida()
+    jugador2 = Jugador(contadorMunicion_DisparoGrande= 5, contadorMunicion_BarrilExplota= 5 , contadorMunicion_Muros=5, teclado=tecladoJuador2, esJugadorDos=True)
+    
+    barra_vidaJugador1 = BarraVida(1)
+    barra_vidaJugador2 = BarraVida(2)
 
     # Añadir los objeto a los grupos de sprites
-    sprites_jugador.add(jugador1, jugador2) 
-    sprites_barra_vida.add(barra_vidaObjeto)
+    sprites_jugador.add(jugador2, jugador1) 
+    sprites_barra_vida.add(barra_vidaJugador1, barra_vidaJugador2)
 
     ## Poner muros en el mapa
     # muros contenederes verticales
@@ -159,9 +162,6 @@ def inicializarJuego():
         muro = Muro(x, y)
         sprites_muros.add(muro)
 
-
-
-
     # Contador de puntuacion y numero de muertos por enemigo 
     contador_muerte_enemigos = 0
     puntuacion = 0
@@ -173,9 +173,14 @@ def inicializarJuego():
     cronometro = Cronometro()
     cronometro.iniciar()
 
+    # muerte de jugador
+    boolMuerteJugador1 =  False
+    boolMuerteJugador2 =  False
+
     
     #BUCLE DEL JUEGO         
     while True:
+
         clock.tick(FPS) # velociade de bucle
 
         # PARA SABER CUANDO TERMINAR EL BUCLE
@@ -316,12 +321,23 @@ def inicializarJuego():
                 jugadorX.quitarVida(1)
                 jugadorX.activarMusica_dolorjugador() # poner musica en la clase
                 # BARRA VIDA
-                barra_vidaObjeto.quitarVida(1)
+                if jugadorX.bool_esJugadorDos  != True:
+                    barra_vidaJugador1.quitarVida(1)
+                else:
+                    barra_vidaJugador2.quitarVida(1)
+
+                # SI UNO DE LOS JUGADORES NO TIENE VIDA
                 if jugadorX.vidaJuagador <= 0:
-                    print("perdio")
-                    ## jugadorX.kill()
-                    return(0)
-                    # pg.quit()
+                    # ver si es el 1 o 2
+                    if jugadorX.bool_esJugadorDos  != True:
+                        print("perdio jugador 1 ")
+                        boolMuerteJugador1 = True
+                        jugadorX.BorrarSprite()
+                    else:
+                        print("perdio jugador 2 ")
+                        boolMuerteJugador2 = True
+                        jugadorX.BorrarSprite()
+                    
 
         # CAMBIAR SPRITE
         # Cuando un zombie verde nos muerde
@@ -500,20 +516,78 @@ def inicializarJuego():
             pg.image.load("imagenes/muro_blanco.png")
         ]
 
-        # imprimir en la pantalla el cronometro
+    # imprimir en la pantalla el cronometro
         pg.font.init()
         font = pg.font.SysFont("Chiller", 35) # crear fuente
         fuente = pg.font.Font(None,30)  # otra forma de crear fuente
         texto = font.render(f'Tiempo <{minutos}:{segundos}>', 1, NEGRO) # imprimir el
         pantalla.blit(texto, (ANCHO -170, 0))
 
-   
+        # imprimir la puntuacion
         texto = font.render(f" SCORE: 0{puntuacion}",1,BLANCO)
         pantalla.blit(texto, (0, 20))
+                    
+        # imprimir el nombre del jugador
+        font = pg.font.SysFont("Chiller", 25)
+        texto = font.render(f" JUGADOR 1",1,NEGRO)
+        pantalla.blit(texto, (ANCHO -100, 30))
 
-        
+        # imprimir el nombre del jugador
+        font = pg.font.SysFont("Chiller", 25)
+        texto = font.render(f" JUGADOR 2",1,NEGRO)
+        pantalla.blit(texto, (ANCHO -100, 150))
+
+        for jugadorx in sprites_jugador:
+
+            if jugadorx.bool_esJugadorDos == False :    
+                #imprimir por pantalla a los atributos(balas, poderes, especiales, muros, etc)´
+                font = pg.font.SysFont("Chiller", 20)
+                pantalla.blit(pg.transform.scale(imagenes_disparosGrandes[1],(20,20)), (ANCHO-80, 90 ))
+                texto=  font.render(f'X {jugadorx.contadorMunicionExterminador_balas_disparoGrande}', 1, NEGRO)
+                pantalla.blit(texto, (ANCHO -50, 90))
+
+                pantalla.blit(pg.transform.scale(imagenes_cajasEspeciales[0],(20,20)), (ANCHO-80, 110))
+                texto=  font.render(f'X {jugadorx.contadorMunicionExterminador_barril_explota}', 1, NEGRO)
+                pantalla.blit(texto, (ANCHO -50, 110))
+
+                pantalla.blit(pg.transform.scale(imagenes_cajasEspeciales[2],(20,20)), (ANCHO-80, 130))
+                texto=  font.render(f'X {jugadorx.contadorMunicionExterminador_muros}', 1, NEGRO)
+                pantalla.blit(texto, (ANCHO -50, 130))
+            else:
+                AltodeMas = 125
+                #imprimir por pantalla a los atributos(balas, poderes, especiales, muros, etc)´
+                font = pg.font.SysFont("Chiller", 20)
+                pantalla.blit(pg.transform.scale(imagenes_disparosGrandes[1],(20,20)), (ANCHO-80, 90 + AltodeMas))
+                texto=  font.render(f'X {jugadorx.contadorMunicionExterminador_balas_disparoGrande}', 1, NEGRO)
+                pantalla.blit(texto, (ANCHO -50, 90 +AltodeMas ))
+
+                pantalla.blit(pg.transform.scale(imagenes_cajasEspeciales[0],(20,20)), (ANCHO-80, 110 +AltodeMas))
+                texto=  font.render(f'X {jugadorx.contadorMunicionExterminador_barril_explota}', 1, NEGRO)
+                pantalla.blit(texto, (ANCHO -50, 110+AltodeMas))
+
+                pantalla.blit(pg.transform.scale(imagenes_cajasEspeciales[2],(20,20)), (ANCHO-80, 130 +AltodeMas))
+                texto=  font.render(f'X {jugadorx.contadorMunicionExterminador_muros}', 1, NEGRO)
+                pantalla.blit(texto, (ANCHO -50, 130+AltodeMas))
+
+        # Cuando ya a muerto el jugador
+        if boolMuerteJugador1:
+            font = pg.font.SysFont("Chiller", 20)
+            texto=  font.render("MURIO", 1, NEGRO)
+            pantalla.blit(texto, (ANCHO -60, 90))
+        if boolMuerteJugador2:
+            font = pg.font.SysFont("Chiller", 20)
+            texto=  font.render("MURIO", 1, NEGRO)
+            pantalla.blit(texto, (ANCHO -60, 90+125))
+
+
+            
         #actualizar conteniddo de pantalla
         pg.display.flip()
 
 inicializarJuego()
 
+def numeroJugador(jugador:Jugador):
+    if jugador.bool_esJugadorDos == False:
+        return(1)
+    else:
+        return(2)
