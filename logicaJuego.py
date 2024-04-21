@@ -123,6 +123,10 @@ def iniciarJuego(numeroJugadores):
     # reproducir la musica infinitamente
     pg.mixer.music.play(-1) 
 
+    #icono
+    icono = pg.image.load("imagenes\zombies\zombies_morado_der_2.png")
+    icono = pg.transform.scale(icono,(20,20))
+    pg.display.set_icon(icono)
     # el metodo update se llama por  los grupos (Group.update())
     # GRUPOS DE SPRITES
     sprites_jugador = pg.sprite.Group()
@@ -482,7 +486,7 @@ def iniciarJuego(numeroJugadores):
                         colicionJugador_cajaEsp = pg.sprite.collide_circle(jugadorx, caja_espx)
                         if colicionJugador_cajaEsp:
                             numeroCaja = caja_espx.numeroCaja
-                            cantidadMunicionAumentar = (minutos) + 3
+                            cantidadMunicionAumentar = (minutos*2) + 3
                             # aumentar la municion del jugador
                             jugadorx.AumentarMunicionEspecial(numeroCaja, cantidadMunicionAumentar)
                             # borrar la caja 
@@ -511,7 +515,7 @@ def iniciarJuego(numeroJugadores):
                         colicionJugador_cajaEsp = pg.sprite.collide_circle(jugadorx, caja_espx)
                         if colicionJugador_cajaEsp:
                             numeroCaja = caja_espx.numeroCaja
-                            cantidadMunicionAumentar = (minutos*2)
+                            cantidadMunicionAumentar = (minutos*2) + 5
                             # aumentar la municion del jugador
                             jugadorx.AumentarMunicionEspecial(numeroCaja, cantidadMunicionAumentar)
                             # borrar la caja 
@@ -522,8 +526,8 @@ def iniciarJuego(numeroJugadores):
 
          
      # CAJAS ESPECIALES (entre segundos 56 y 58)
-        if segundos >= 56 and segundos < 59: 
-            if segundos == 56 and tiempo_milisegundo < 1:
+        if segundos >= 54 and segundos < 59: 
+            if segundos == 54 and tiempo_milisegundo < 1:
                 caja_esp1 = CajasEspeciales(1) # como es caja de barriles explosivos(1)
                 caja_esp2 = CajasEspeciales(2) # como es caja de muros sprite(2)
                 caja_esp1.cambiarPosicionRandom()
@@ -539,7 +543,7 @@ def iniciarJuego(numeroJugadores):
                         colicionJugador_cajaEsp = pg.sprite.collide_circle(jugadorx, caja_espx)
                         if colicionJugador_cajaEsp:
                             numeroCaja = caja_espx.numeroCaja
-                            cantidadMunicionAumentar = (minutos*2) + 3
+                            cantidadMunicionAumentar = (minutos*3) + 3
                             # aumentar la municion del jugador
                             jugadorx.AumentarMunicionEspecial(numeroCaja, cantidadMunicionAumentar)
                             # borrar la caja 
@@ -551,10 +555,10 @@ def iniciarJuego(numeroJugadores):
                 
         
         # caja especial de vida y revivir
-        if segundos >= 30 and segundos < 35 and minutos >= 0: 
+        if segundos >= 30 and segundos < 40 : 
             if segundos == 30 and tiempo_milisegundo < 1:
                 caja_esp1 = CajasEspeciales(3) # como es caja de vida
-                caja_esp1.cambiarPosicionRandom()
+                ## caja_esp1.cambiarPosicionRandom()
                 sprites_cajas_especiales.add(caja_esp1)
             else:
                 # dibujar las cajas 
@@ -565,7 +569,7 @@ def iniciarJuego(numeroJugadores):
                         colicionJugador_cajaEsp = pg.sprite.collide_circle(jugadorx, caja_espx)
                         if colicionJugador_cajaEsp:
                             numeroCaja = caja_espx.numeroCaja
-                            cantidadVidaAumentar = (minutos*5) + 10 
+                            cantidadVidaAumentar = (minutos*5) + 20 
                             # aumentar la municion del jugador
                             jugadorx.AumentarMunicionEspecial(numeroCaja, cantidadVidaAumentar)
                             # borrar la caja 
@@ -575,7 +579,7 @@ def iniciarJuego(numeroJugadores):
                                 if barraVidax.barraVida_Numerojugador == numeroJugador(jugadorx):
                                     barraVidax.aumentarVida(cantidadVidaAumentar) 
         # si el tiempo se paso borrar las cajas 
-        if segundos == 35 and tiempo_milisegundo < 1:
+        if segundos == 40 and tiempo_milisegundo < 1:
             sprites_cajas_especiales.empty() # eliminar sprites
             
         # SONIDO Y CONTROLADOR DE SONIDO
@@ -688,17 +692,11 @@ def iniciarJuego(numeroJugadores):
             cronometro.reiniciar()
             cronometro.iniciar()
             sprites_jugador.empty()
-            # sonido de perder
-            pg.mixer.Sound("musica/gameover.mp3").set_volume(controladorSonido.volumen_actual)
-            pg.mixer.Sound("musica/gameover.mp3")
         elif (boolMuerteJugador1 and boolMuerteJugador2 and terminoJuego and framesAlTerminarJuego== 1 and numeroJugadores >= 2):
             print("iniciar cronometro")
             cronometro.reiniciar()
             cronometro.iniciar()
             sprites_jugador.empty()
-            # sondido de perder
-            pg.mixer.Sound("musica/gameover.mp3").set_volume(controladorSonido.volumen_actual)
-            pg.mixer.Sound("musica/gameover.mp3")
 
                 
         if terminoJuego:

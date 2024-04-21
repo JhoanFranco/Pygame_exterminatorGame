@@ -16,6 +16,11 @@ pg.mixer.music.load("musica/Music Ever_ Everything Ends Here.mp3")# cargar music
     # reproducir la musica infinitamente
 pg.mixer.music.play(-1)
 
+#icono
+icono = pg.image.load("imagenes\zombies\zombies_morado_der_2.png")
+icono = pg.transform.scale(icono,(20,20))
+pg.display.set_icon(icono)
+
 # Background
 Background = pg.transform.scale(pg.image.load("imagenes/fondos/fondoMenu.png"),(ANCHO,ALTO))
 
