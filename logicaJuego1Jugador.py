@@ -309,7 +309,7 @@ def inicializarJuego():
             # BARRA VIDA
             barra_vidaObjeto.quitarVida(1)
             if jugador.vidaJuagador <= 0:
-                print("perdio")
+                # print("perdio")
                 return(0)
                 # pg.quit()
 

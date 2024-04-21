@@ -72,7 +72,7 @@ class Enemigos_verdes(pg.sprite.Sprite):
 
         if self.estarMordiendo:
             self.cambioImagenMordida()
-            print("zombie verde volumen nulo: " + f"{es_volumen_nulo}")
+            # print("zombie verde volumen nulo: " + f"{es_volumen_nulo}")
             # si el volumen_nulo es igual a false 
             if es_volumen_nulo ==  False: 
                 self.sonidoMordida(controladorSonido) # aqui ya cambia el volumen y hace el play 

@@ -14,6 +14,8 @@ from teclado import TecladoExterminador1, TecladoExterminador2
 from cronometro import Cronometro
 from controladorSonido import ControladorSonido
 
+from puntuacion import Puntuacion
+
 # Tamaño pantalla
 from main import ANCHO, ALTO
 # FPS
@@ -71,7 +73,7 @@ def numeroJugador(jugador:Jugador):
     else:
         return(2)
 
-def inicializarJuego():
+def inicializarJuego(numeroJugadores):
     # INICIALIZAR LAS VARIABLES PARA EL FUNCIONAMIENTO DEL JUEGO 
     # Pantalla y clock , es volumen nulo  
     global pantalla
@@ -109,6 +111,7 @@ def inicializarJuego():
 
     # controlador de sonido
     global controladorSonido
+
         
     # Incializar pygame
     pg.init()
@@ -141,9 +144,16 @@ def inicializarJuego():
     barra_vidaJugador1 = BarraVida(1)
     barra_vidaJugador2 = BarraVida(2)
 
-    # Añadir los objeto a los grupos de sprites
-    sprites_jugador.add(jugador2, jugador1) 
-    sprites_barra_vida.add(barra_vidaJugador1, barra_vidaJugador2)
+    # Añadir los objeto a los grupos de sprites dependiendo de los jugadores
+    if(numeroJugadores == 1):
+        sprites_jugador.add(jugador1) 
+        sprites_barra_vida.add(barra_vidaJugador1)
+    else:
+        sprites_jugador.add(jugador2, jugador1) 
+        sprites_barra_vida.add(barra_vidaJugador1, barra_vidaJugador2)
+
+    # Puntuacion 
+    puntuacion = Puntuacion()
 
     ## Poner muros en el mapa
     # muros contenederes verticales
@@ -168,12 +178,13 @@ def inicializarJuego():
         muro = Muro(x, y)
         sprites_muros.add(muro)
 
-    # Contador de puntuacion y numero de muertos por enemigo 
+    # numero de muertos por enemigo 
     contador_muerte_enemigos = 0
-    puntuacion = 0
+    # poner la puntuacion en 0 
+    puntuacion.puntuacion = 0
 
     # contador para el numero de enemigos
-    contador_poner_enemigos = 4
+    contador_poner_enemigos = 6
 
     # creacion de cronometro
     cronometro = Cronometro()
@@ -183,6 +194,10 @@ def inicializarJuego():
     boolMuerteJugador1 =  False
     boolMuerteJugador2 =  False
 
+    # termino juego 
+    terminoJuego = False
+    # frames al terminar el juego 
+    framesAlTerminarJuego = 0
     
     #BUCLE DEL JUEGO         
     while True:
@@ -194,6 +209,32 @@ def inicializarJuego():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
+            ## PARA COLOCAR PUNTUACION CUANDO TERMINA EL JUEGO 
+            if terminoJuego:
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_RETURN: # si toca la telca enter
+                        print("Texto ingresado:", puntuacion.textoIngresadoUsuario)
+                        ## PROCESAR UNA NUEVA PUNTUACION
+                        puntuacion.procesarUnaNuevaPuntuacion( puntuacion.textoIngresadoUsuario, numeroJugadores, puntuacion.puntuacion, "NoDef")
+                        puntuacion.textoIngresadoUsuario = ''
+                        return("Termino Juego1")
+                    elif event.key == pg.K_BACKSPACE: # si toca la tecla de borrar
+                        puntuacion.textoIngresadoUsuario = puntuacion.textoIngresadoUsuario[:-1]
+                    elif len(puntuacion.textoIngresadoUsuario) < puntuacion.MAX_LETTERS: # sino entonces agregar esa entrada a la var  self.textoIngresadoUsuario
+                        puntuacion.textoIngresadoUsuario += event.unicode
+
+                # Renderizar texto ingresado en la pantalla
+                font = pg.font.SysFont("Chiller", 70) # crear fuente
+                puntuacion.superficieTexto = font.render(puntuacion.textoIngresadoUsuario, True, NEGRO)
+                
+                # Renderizar guión debajo del texto
+                remaining_letters = puntuacion.MAX_LETTERS - len(puntuacion.textoIngresadoUsuario)
+                if remaining_letters >= 0:
+                    underscore_text = '-' * remaining_letters
+                    puntuacion.superficieLineas = font.render(underscore_text, True, NEGRO)
+                    # pantalla.blit(puntuacion.superficieLineas, (ANCHO/2, 40))
+                
+
 
         # OBTENER EL TIEMPO DEL CRONOMETRO
         minutos, segundos, tiempo_milisegundo = cronometro.obtener_tiempo_formateado()
@@ -218,8 +259,11 @@ def inicializarJuego():
 
         # ACTUALIZACION DE SPRITES
             # actualizacion de jugadore 
-        jugador1.update(jugador1, sprites_balas_grandes, sprites_balas, sprites_muros, sprites_muros_explosivos) # actualizar el sprite jugador1
-        jugador2.update(jugador2, sprites_balas_grandes, sprites_balas, sprites_muros, sprites_muros_explosivos) # actualizar el sprite jugador1
+        if numeroJugadores == 1:
+            jugador1.update(jugador1, sprites_balas_grandes, sprites_balas, sprites_muros, sprites_muros_explosivos) # actualizar el sprite jugador1
+        else:
+            jugador1.update(jugador1, sprites_balas_grandes, sprites_balas, sprites_muros, sprites_muros_explosivos) # actualizar el sprite jugador1
+            jugador2.update(jugador2, sprites_balas_grandes, sprites_balas, sprites_muros, sprites_muros_explosivos) # actualizar el sprite jugador1
         sprites_enemigos.update()   # sin argumentos adicionales
         sprites_balas.update()      # sin argumentos adicionales
         sprites_barra_vida.update() # sin argumentos adicionales
@@ -243,7 +287,7 @@ def inicializarJuego():
                 if sprite_enemigo.vidaEnemigo <= 0:
                     # poner puntos a la puntuacion
                     contador_muerte_enemigos += 1
-                    puntuacion += 20
+                    puntuacion.sumarPuntuacion(20) 
 
         # COLICION balas Grandes con los enemigos
         for sprite_balaGrande in sprites_balas_grandes:
@@ -262,7 +306,7 @@ def inicializarJuego():
                     sprite_enemigo.kill()
                     #poner puntuacion
                     contador_muerte_enemigos += 1
-                    puntuacion += 20
+                    puntuacion.sumarPuntuacion(20) 
                 else:
                     pass
             
@@ -273,7 +317,7 @@ def inicializarJuego():
                 sprite_muro.golpeMuro(1)
                 if sprite_muro.contadorDeVidaMuro <= 0:
                     sprite_muro.update()    # si es <= 0 lo elimina
-                    puntuacion += 3         # poner puntuacion
+                    puntuacion.sumarPuntuacion(3)          # poner puntuacion
         
         # COLICION de la bala grande con el muro
         for sprite_muro in sprites_muros:
@@ -282,7 +326,7 @@ def inicializarJuego():
                 sprite_muro.golpeMuro(45)
                 if sprite_muro.contadorDeVidaMuro <= 0:
                     sprite_muro.update()    # si es <= 0 lo elimina
-                    puntuacion += 3         # poner puntuacion    
+                    puntuacion.sumarPuntuacion(3)          # poner puntuacion    
 
 
 
@@ -299,7 +343,7 @@ def inicializarJuego():
                     # si el muro se quedo sin vida
                     if sprite_muro.contadorDeVidaMuro <= 0:
                         sprite_muro.update()    # si es <= 0 lo elimina
-                        puntuacion += 3         # poner la puntuacion   
+                        puntuacion.sumarPuntuacion(3)         # poner la puntuacion   
 
 
         # COLICION del enemigo (zombie morado) con el muro
@@ -315,7 +359,7 @@ def inicializarJuego():
                     # si el muro se quedo sin vida
                     if sprite_muro.contadorDeVidaMuro <= 0:
                         sprite_muro.update()    # si es <= 0 lo elimina
-                        puntuacion += 3         # poner la puntuacion   
+                        puntuacion.sumarPuntuacion(3)         # poner la puntuacion   
 
 
 
@@ -387,7 +431,7 @@ def inicializarJuego():
                 pg.display.flip() # actualizamos pantalla
                 time.sleep(0.5) # paramos un momento el juego 1/2 segundo
                 sprite_muroExplosivo.kill()
-                puntuacion += 15
+                puntuacion.sumarPuntuacion(15)
 
         # COLICION barril_explosivo con la bala grande
         for sprite_muroExplosivo in sprites_muros_explosivos:
@@ -398,7 +442,7 @@ def inicializarJuego():
                 pg.display.flip() # actualizamos pantalla
                 time.sleep(0.5) # paramos un momento el juego 1/2 segundo
                 sprite_muroExplosivo.kill()
-                puntuacion += 15
+                puntuacion.sumarPuntuacion(15)
 
         # DIBUJAR el fondo de la pantalla
         # Tiene que ser en el bucle porque si no quedan las imagenes represadas
@@ -436,12 +480,12 @@ def inicializarJuego():
                             # aumentar la municion del jugador
                             jugadorx.AumentarMunicionEspecial(numeroCaja, cantidadMunicionAumentar)
                             # borrar la caja 
-                            caja_espx.eliminarCaja()
-                    
-                # si el tiempo se paso borrar las cajas 
-                if segundos == 20 and tiempo_milisegundo < 1:
-                    for caja_espx in sprites_cajas_especiales:
-                        caja_espx.eliminarCaja()
+                            caja_espx.eliminarCaja()     
+        # si el tiempo se paso borrar las cajas 
+        if segundos == 20 and tiempo_milisegundo < 1:
+            sprites_cajas_especiales.empty()
+            # for caja_espx in sprites_cajas_especiales:
+            #     caja_espx.eliminarCaja()
                
         # CAJAS ESPECIALES (entre segundos 35 y 40)
         if segundos >= 35 and segundos < 40: 
@@ -465,12 +509,11 @@ def inicializarJuego():
                             # aumentar la municion del jugador
                             jugadorx.AumentarMunicionEspecial(numeroCaja, cantidadMunicionAumentar)
                             # borrar la caja 
-                            caja_espx.eliminarCaja()
-                    
-                # si el tiempo se paso borrar las cajas 
-                if segundos == 40 and tiempo_milisegundo < 1:
-                    for caja_espx in sprites_cajas_especiales:
-                        caja_espx.eliminarCaja()
+                            caja_espx.eliminarCaja()   
+        # si el tiempo se paso borrar las cajas 
+        if segundos == 40 and tiempo_milisegundo < 1:
+            sprites_cajas_especiales.empty() # eliminar sprites
+
          
      # CAJAS ESPECIALES (entre segundos 56 y 58)
         if segundos >= 56 and segundos < 59: 
@@ -497,9 +540,9 @@ def inicializarJuego():
                             caja_espx.eliminarCaja()
                     
                 # si el tiempo se paso borrar las cajas 
-                if segundos == 59 and tiempo_milisegundo < 1:
-                    for caja_espx in sprites_cajas_especiales:
-                        caja_espx.eliminarCaja()
+        if segundos == 59 and tiempo_milisegundo < 1:
+            sprites_cajas_especiales.empty() # eliminar sprites
+                
         
         # caja especial de vida y revivir
         if segundos >= 30 and segundos < 35 and minutos >= 0: 
@@ -524,20 +567,18 @@ def inicializarJuego():
                             # Cambiar el contador a la Barra de vida
                             for barraVidax in sprites_barra_vida:
                                 if barraVidax.barraVida_Numerojugador == numeroJugador(jugadorx):
-                                    barraVidax.aumentarVida(cantidadVidaAumentar)
-                    
-                # si el tiempo se paso borrar las cajas 
-                if segundos == 35 and tiempo_milisegundo < 1:
-                    for caja_espx in sprites_cajas_especiales:
-                        caja_espx.eliminarCaja()
-
+                                    barraVidax.aumentarVida(cantidadVidaAumentar) 
+        # si el tiempo se paso borrar las cajas 
+        if segundos == 35 and tiempo_milisegundo < 1:
+            sprites_cajas_especiales.empty() # eliminar sprites
+            
         # SONIDO Y CONTROLADOR DE SONIDO
         #Ojo: solo para la musica en bucle(FONDO DEL JUEGO)
         
         controladorSonido.update(pantalla) # mira si se presionaron las teclas de controlador de sonifo 
 
         #Poner si el volumen es nulo 
-        print(es_volumen_nulo)
+        #print(es_volumen_nulo)
         
         imagenes_disparosGrandes =[ 
             pg.image.load("imagenes/disparo_grande/disparo_grande_derecha.png"),
@@ -560,18 +601,20 @@ def inicializarJuego():
         pantalla.blit(texto, (ANCHO -170, 0))
 
         # imprimir la puntuacion
-        texto = font.render(f" SCORE: 0{puntuacion}",1,BLANCO)
+        texto = font.render(f" SCORE: 0{puntuacion.puntuacion}",1,BLANCO)
         pantalla.blit(texto, (0, 20))
-                    
-        # imprimir el nombre del jugador
+
+
+        # imprimir el nombre del jugador 1
         font = pg.font.SysFont("Chiller", 25)
         texto = font.render(f" JUGADOR 1",1,NEGRO)
         pantalla.blit(texto, (ANCHO -100, 30))
 
-        # imprimir el nombre del jugador
-        font = pg.font.SysFont("Chiller", 25)
-        texto = font.render(f" JUGADOR 2",1,NEGRO)
-        pantalla.blit(texto, (ANCHO -100, 150))
+        if numeroJugadores >= 2:
+            # imprimir el nombre del jugador 2
+            font = pg.font.SysFont("Chiller", 25)
+            texto = font.render(f" JUGADOR 2",1,NEGRO)
+            pantalla.blit(texto, (ANCHO -100, 150))
 
         for jugadorx in sprites_jugador:
 
@@ -614,11 +657,42 @@ def inicializarJuego():
             font = pg.font.SysFont("Chiller", 20)
             texto=  font.render("MURIO", 1, NEGRO)
             pantalla.blit(texto, (ANCHO -60, 90+125))
-
-
             
+        # cuando ya los dos jugadores estan muertos 
+        if numeroJugadores == 1 and boolMuerteJugador1:
+            font = pg.font.SysFont("Chiller", 150)
+            texto=  font.render("PERDIO", 1, NEGRO)
+            pantalla.blit(texto, (ANCHO/2 -200, ALTO/2 -100))
+            if framesAlTerminarJuego == 0:
+                terminoJuego = True
+            framesAlTerminarJuego += 1
+            print(segundos)
+        elif boolMuerteJugador1 and boolMuerteJugador2 and numeroJugadores >= 2:
+            font = pg.font.SysFont("Chiller", 150)
+            texto=  font.render("PERDIERON", 1, NEGRO)
+            pantalla.blit(texto, (ANCHO/2 -200, ALTO/2 -100))
+            if framesAlTerminarJuego == 0:
+                terminoJuego = True
+            framesAlTerminarJuego += 1
+            print(segundos)
+
+
+        if (boolMuerteJugador1 and terminoJuego and framesAlTerminarJuego ==1 and numeroJugadores == 1):
+            print("iniciar cronometro")
+            cronometro.reiniciar()
+            cronometro.iniciar()
+            sprites_jugador.empty()
+        elif (boolMuerteJugador1 and boolMuerteJugador2 and terminoJuego and framesAlTerminarJuego== 1 and numeroJugadores >= 2):
+            print("iniciar cronometro")
+            cronometro.reiniciar()
+            cronometro.iniciar()
+            sprites_jugador.empty()
+                
+        if terminoJuego:
+            puntuacion.imprimirEnPantalla(pantalla)
+        
         #actualizar conteniddo de pantalla
         pg.display.flip()
 
-inicializarJuego()
+inicializarJuego(2)
 

@@ -1,0 +1,11 @@
+indice,nombre,numeroJugadores,puntuacion,#ZombiesMuertos
+1,jhoan,1,118,NoDef
+2,juanRodrig,2,84,NoDef
+3,jhoan,1,64,NoDef
+4,sofia,1,21,NoDef
+5,vacio,vacio,0,vacio
+6,vacio,vacio,0,vacio
+7,vacio,vacio,0,vacio
+8,vacio,vacio,0,vacio
+9,vacio,vacio,0,vacio
+10,vacio,vacio,0,vacio
