@@ -14,11 +14,11 @@ from cronometro import Cronometro
 from controladorSonido import ControladorSonido
 
 # Tamaño pantalla
-from main import ANCHO, ALTO
+from variablesMain import ANCHO, ALTO
 # FPS
-from main import FPS
+from variablesMain import FPS
 # PALETA DE COLORES RGB()
-from main import NEGRO, BLANCO, ROJO, AZUL,VERDE
+from variablesMain import NEGRO, BLANCO, ROJO, AZUL,VERDE
 
 # imagenes para el juego
 fondo = pg.transform.scale(pg.image.load("imagenes/fondo_cuidad_final.png"), (ANCHO,ALTO))
@@ -26,12 +26,12 @@ fondo = pg.transform.scale(pg.image.load("imagenes/fondo_cuidad_final.png"), (AN
 
 
 # Pantalla y clock 
-from main import pantalla
-from main import clock
+from variablesMain import pantalla
+from variablesMain import clock
 # es volumen nulo 
-from main import es_volumen_nulo
+from variablesMain import es_volumen_nulo
 # controlador de sonifo
-from main import controladorSonido
+from variablesMain import controladorSonido
 
 
 

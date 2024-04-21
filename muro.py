@@ -1,5 +1,5 @@
 import pygame as pg
-from  main import VERDE, ANCHO, ALTO
+from  variablesMain import VERDE, ANCHO, ALTO
 from controladorSonido import ControladorSonido 
 
 
@@ -59,7 +59,7 @@ class MuroExplosivo(pg.sprite.Sprite):
     
     def update(self, pantalla, sprites_muros_explosivos, sprites_enemigos,  es_volumen_nulo=False):
         ## controlador de sonido importacion
-        from main import controladorSonido 
+        from variablesMain import controladorSonido 
 
         self.image =  pg.transform.scale(imagenes_efectosJuego[0],(300,300))
         self.rect.x -= 100

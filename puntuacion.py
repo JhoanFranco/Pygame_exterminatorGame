@@ -1,6 +1,6 @@
 import pygame as pg
 import os
-from main import NEGRO ,ANCHO,ALTO
+from variablesMain import NEGRO ,ANCHO,ALTO
 
 class Puntuacion():
     def __init__(self):

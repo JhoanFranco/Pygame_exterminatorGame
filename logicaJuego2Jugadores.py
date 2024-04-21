@@ -17,11 +17,11 @@ from controladorSonido import ControladorSonido
 from puntuacion import Puntuacion
 
 # Tamaño pantalla
-from main import ANCHO, ALTO
+from variablesMain import ANCHO, ALTO
 # FPS
-from main import FPS
+from variablesMain import FPS
 # PALETA DE COLORES RGB()
-from main import NEGRO, BLANCO, ROJO, AZUL,VERDE
+from variablesMain import NEGRO, BLANCO, ROJO, AZUL,VERDE
 
 # imagenes para el juego
 fondo = pg.transform.scale(pg.image.load("imagenes/fondo_cuidad_final.png"), (ANCHO,ALTO))
@@ -29,12 +29,12 @@ fondo = pg.transform.scale(pg.image.load("imagenes/fondo_cuidad_final.png"), (AN
 
 
 # Pantalla y clock 
-from main import pantalla
-from main import clock
+from variablesMain import pantalla
+from variablesMain import clock
 # es volumen nulo 
-from main import es_volumen_nulo
+from variablesMain import es_volumen_nulo
 # controlador de sonifo
-from main import controladorSonido
+from variablesMain import controladorSonido
 
 
 
@@ -73,7 +73,7 @@ def numeroJugador(jugador:Jugador):
     else:
         return(2)
 
-def inicializarJuego(numeroJugadores):
+def iniciarJuego(numeroJugadores):
     # INICIALIZAR LAS VARIABLES PARA EL FUNCIONAMIENTO DEL JUEGO 
     # Pantalla y clock , es volumen nulo  
     global pantalla
@@ -115,6 +115,8 @@ def inicializarJuego(numeroJugadores):
         
     # Incializar pygame
     pg.init()
+
+    pg.display.set_caption("JUEGO EXTERMINADOR")
 
     # MUSICA poner en bucle el fondo del juego 
     pg.mixer.music.load("musica/musica_fondo.mp3")# cargar musica python
@@ -666,7 +668,7 @@ def inicializarJuego(numeroJugadores):
             if framesAlTerminarJuego == 0:
                 terminoJuego = True
             framesAlTerminarJuego += 1
-            print(segundos)
+            # print(segundos)
         elif boolMuerteJugador1 and boolMuerteJugador2 and numeroJugadores >= 2:
             font = pg.font.SysFont("Chiller", 150)
             texto=  font.render("PERDIERON", 1, NEGRO)
@@ -674,7 +676,7 @@ def inicializarJuego(numeroJugadores):
             if framesAlTerminarJuego == 0:
                 terminoJuego = True
             framesAlTerminarJuego += 1
-            print(segundos)
+            # print(segundos)
 
 
         if (boolMuerteJugador1 and terminoJuego and framesAlTerminarJuego ==1 and numeroJugadores == 1):
@@ -694,5 +696,5 @@ def inicializarJuego(numeroJugadores):
         #actualizar conteniddo de pantalla
         pg.display.flip()
 
-inicializarJuego(2)
+#iniciarJuego(2)
 

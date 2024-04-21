@@ -1,5 +1,5 @@
 import pygame as pg
-from main import ANCHO, ALTO
+from variablesMain import ANCHO, ALTO
 import random
 
 imagenes_cajasEspeciales = [

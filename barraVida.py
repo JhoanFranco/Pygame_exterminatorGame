@@ -1,5 +1,5 @@
 import pygame as pg
-from main import ANCHO, ALTO
+from variablesMain import ANCHO, ALTO
 
 imagenes_barraVida = [
     pg.image.load("imagenes/barra_vida/barraVida_1.png"),
