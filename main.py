@@ -1,3 +1,4 @@
-from claseMenu import menuPrincipal
+from menu import menuPrincipal
+
 
 menuPrincipal()

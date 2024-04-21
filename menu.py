@@ -1,7 +1,7 @@
 import pygame as pg
 import sys
 from button import Button
-from  mainVariables import pantalla, clock, BLANCO,NEGRO
+from  mainVariables import pantalla, clock, BLANCO,NEGRO, controladorSonido
 from  logicaJuego import iniciarJuego
 
 ANCHO, ALTO = 1000,600
@@ -11,6 +11,10 @@ NEGRO = (0,0,0)
 pg.init()
 
 pg.display.set_caption("Menu")
+
+pg.mixer.music.load("musica/Music Ever_ Everything Ends Here.mp3")# cargar musica python
+    # reproducir la musica infinitamente
+pg.mixer.music.play(-1)
 
 # Background
 Background = pg.transform.scale(pg.image.load("imagenes/fondos/fondoMenu.png"),(ANCHO,ALTO))
@@ -49,13 +53,18 @@ buttonPlayersOne = Button(buttonPlayersOneSquare,(500,120), "One player",fontHal
 buttonPlayersTwoSquare = pg.transform.scale(imageSquare,(300,80))
 buttonPlayersTwo = Button(buttonPlayersTwoSquare,(500,250), "Two player",fontHallowen,(0,0,0),(240,94,46))
 
+buttonInstructions2Square = pg.transform.scale(imageSquare,(250,80))
+buttonInstructions2 = Button(buttonInstructions2Square,(850,550), "Instructions2",fontHallowen,(0,0,0),(240,94,46))
+
 
 
 listButtonsMain = [buttonInstructions, buttonPlay, buttonOption, buttonExit, buttonScore]
 listButtonMenuOption = [buttonBack]
-listButtonMenuInstruction = [buttonBack]
+listButtonMenuInstruction = [buttonBack, buttonInstructions2]
+listButtonMenuInstruction2 = [buttonBack]
 listButtonMenuPlay = [buttonBack, buttonPlayersOne, buttonPlayersTwo]
 listButtonMenuScore =[buttonBack]
+
 
 # menu de opciones 
 def menuOption():
@@ -69,6 +78,8 @@ def menuOption():
             button.update(pantalla)
             button.updateColor(positionMouse) # para actualizar el color  si el mouse toca el boton 
 
+        controladorSonido.update(pantalla)
+        
         # para coger los eventos o click del mouse 
         for event in pg.event.get():
             if event.type == pg.MOUSEBUTTONDOWN:
@@ -96,6 +107,7 @@ def menuScores():
             button.update(pantalla)
             button.updateColor(positionMouse) # para actualizar el color  si el mouse toca el boton 
 
+        controladorSonido.update(pantalla)
         # para coger los eventos o click del mouse 
         for event in pg.event.get():
             if event.type == pg.MOUSEBUTTONDOWN:
@@ -140,7 +152,7 @@ def menuInstrucciones():
     while True:
         positionMouse = pg.mouse.get_pos() # obtener la posicion del mouse en la ventana de pygame 
         # instrucciones
-        BackgroundInstrucciones = pg.transform.scale(pg.image.load("imagenes/instrucciones/Instrucciones.png"),(ANCHO,ALTO))
+        BackgroundInstrucciones = pg.transform.scale(pg.image.load("imagenes/instrucciones/Instrucciones1.png"),(ANCHO,ALTO))
         pantalla.blit(BackgroundInstrucciones, (0,0)) #Whitout margin, poner el fondo 
 
         # por cada boton en la lista ponerlo en la pantalla
@@ -148,6 +160,7 @@ def menuInstrucciones():
             button.update(pantalla)
             button.updateColor(positionMouse) # para actualizar el color  si el mouse toca el boton 
 
+        controladorSonido.update(pantalla)
         # para coger los eventos o click del mouse 
         for event in pg.event.get():
             if event.type == pg.MOUSEBUTTONDOWN:
@@ -157,6 +170,38 @@ def menuInstrucciones():
                         # para devolverse al menu principal 
                         if nombreButton == "Back":
                             menuPrincipal()
+                        if nombreButton == "Instructions2":
+                            menuInstrucciones2()
+                            
+
+
+        pg.display.update() #actualizar el contenido de la pantalla
+        clock.tick(60) #60fps
+
+
+
+def menuInstrucciones2():
+    while True:
+        positionMouse = pg.mouse.get_pos() # obtener la posicion del mouse en la ventana de pygame 
+        # instrucciones
+        BackgroundInstrucciones = pg.transform.scale(pg.image.load("imagenes/instrucciones/Instrucciones2.png"),(ANCHO,ALTO))
+        pantalla.blit(BackgroundInstrucciones, (0,0)) #Whitout margin, poner el fondo 
+
+        # por cada boton en la lista ponerlo en la pantalla
+        for button in listButtonMenuInstruction2 :
+            button.update(pantalla)
+            button.updateColor(positionMouse) # para actualizar el color  si el mouse toca el boton 
+
+        controladorSonido.update(pantalla)
+        # para coger los eventos o click del mouse 
+        for event in pg.event.get():
+            if event.type == pg.MOUSEBUTTONDOWN:
+                for button in listButtonMenuInstruction2:
+                    if button.checkoutPositionInside(positionMouse):
+                        nombreButton = button.inputText
+                        # para devolverse al menu principal 
+                        if nombreButton == "Back":
+                            menuInstrucciones()
 
         pg.display.update() #actualizar el contenido de la pantalla
         clock.tick(60) #60fps
@@ -173,6 +218,7 @@ def menuPlay():
             button.update(pantalla)
             button.updateColor(positionMouse) # para actualizar el color  si el mouse toca el boton 
 
+        controladorSonido.update(pantalla)
         # para coger los eventos o click del mouse 
         for event in pg.event.get():
             if event.type == pg.MOUSEBUTTONDOWN:
@@ -183,8 +229,10 @@ def menuPlay():
                         if nombreButton == "Back":
                             menuPrincipal()
                         elif nombreButton == "One player":
+                            pg.mixer.music.stop()
                             iniciarJuego(1)
                         elif nombreButton == "Two player":
+                            pg.mixer.music.stop()
                             iniciarJuego(2)
 
         pg.display.update() #actualizar el contenido de la pantalla
@@ -225,6 +273,7 @@ def menuPrincipal():
 
         # poner otra vez los botones 
         pantalla.blit(Background,(0,0)) # Whitout Margin in the backgrounds
+        controladorSonido.update(pantalla)
         for button in listButtonsMain:
             button.update(pantalla)
             button.updateColor(positionMouse)
@@ -235,7 +284,5 @@ def menuPrincipal():
         pg.display.flip() #Update content in the pantalla
         clock.tick(60) #60fps
 
-
-menuPrincipal()
 
 

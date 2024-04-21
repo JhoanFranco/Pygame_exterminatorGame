@@ -219,6 +219,10 @@ def iniciarJuego(numeroJugadores):
                         ## PROCESAR UNA NUEVA PUNTUACION
                         puntuacion.procesarUnaNuevaPuntuacion( puntuacion.textoIngresadoUsuario, numeroJugadores, puntuacion.puntuacion, "NoDef")
                         puntuacion.textoIngresadoUsuario = ''
+                        pg.mixer.music.stop()
+                        pg.mixer.music.load("musica/Music Ever_ Everything Ends Here.mp3")# cargar musica python
+                        # reproducir la musica infinitamente
+                        pg.mixer.music.play(-1)
                         return("Termino Juego1")
                     elif event.key == pg.K_BACKSPACE: # si toca la tecla de borrar
                         puntuacion.textoIngresadoUsuario = puntuacion.textoIngresadoUsuario[:-1]
@@ -684,11 +688,18 @@ def iniciarJuego(numeroJugadores):
             cronometro.reiniciar()
             cronometro.iniciar()
             sprites_jugador.empty()
+            # sonido de perder
+            pg.mixer.Sound("musica/gameover.mp3").set_volume(controladorSonido.volumen_actual)
+            pg.mixer.Sound("musica/gameover.mp3")
         elif (boolMuerteJugador1 and boolMuerteJugador2 and terminoJuego and framesAlTerminarJuego== 1 and numeroJugadores >= 2):
             print("iniciar cronometro")
             cronometro.reiniciar()
             cronometro.iniciar()
             sprites_jugador.empty()
+            # sondido de perder
+            pg.mixer.Sound("musica/gameover.mp3").set_volume(controladorSonido.volumen_actual)
+            pg.mixer.Sound("musica/gameover.mp3")
+
                 
         if terminoJuego:
             puntuacion.imprimirEnPantalla(pantalla)
