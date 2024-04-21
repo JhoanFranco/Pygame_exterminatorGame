@@ -1,6 +1,6 @@
 import pygame as pg
 # from menu import menuPrincipal
-from controladorSonido import ControladorSonido
+from claseControladorSonido import ControladorSonido
 
 # Tamaño pantalla
 ANCHO, ALTO = 1000, 600

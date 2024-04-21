@@ -1,7 +1,7 @@
 import pygame as pg
 import random
-from variablesMain import ANCHO,ALTO, VERDE
-from controladorSonido import ControladorSonido 
+from mainVariables import ANCHO,ALTO, VERDE
+from claseControladorSonido import ControladorSonido 
 
 imagenes_zombieVerde_correrDerecha = [ 
     pg.image.load("imagenes/zombies/zombies_verde_der_1.png"),
@@ -63,7 +63,7 @@ class Enemigos_verdes(pg.sprite.Sprite):
 
     def update(self):
         # importar el controlador de sonido para saber que poner 
-        from variablesMain import controladorSonido
+        from mainVariables import controladorSonido
         es_volumen_nulo = controladorSonido.es_volumen_nulo
 
 
@@ -158,7 +158,7 @@ class Enemigos_morado(pg.sprite.Sprite):
 
     def update(self):
         # importar el controlador de sonido para saber que poner 
-        from variablesMain import controladorSonido
+        from mainVariables import controladorSonido
         es_volumen_nulo = controladorSonido.es_volumen_nulo
 
         self.rect.y -= self.velocidad_x

@@ -1,8 +1,8 @@
 import pygame as pg
 import sys
 from button import Button
-from  variablesMain import pantalla, clock, BLANCO,NEGRO
-from  logicaJuego2Jugadores import iniciarJuego
+from  mainVariables import pantalla, clock, BLANCO,NEGRO
+from  logicaJuego import iniciarJuego
 
 ANCHO, ALTO = 1000,600
 FPS = 10

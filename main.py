@@ -1,3 +1,3 @@
-from menu import menuPrincipal
+from claseMenu import menuPrincipal
 
 menuPrincipal()

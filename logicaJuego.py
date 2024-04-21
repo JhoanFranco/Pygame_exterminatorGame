@@ -3,25 +3,25 @@ import pygame as pg
 import time 
 import sys
 # # importacion de clases creadas para el juego 
-from muro import Muro, MuroExplosivo
-from barraVida import BarraVida
-from jugador import Jugador
-from  enemigo import Enemigos_morado, Enemigos_verdes
-from cajasEspeciales import CajasEspeciales
+from claseMuro import Muro, MuroExplosivo
+from claseBarraVida import BarraVida
+from claseJugador import Jugador
+from  claseEnemigo import Enemigos_morado, Enemigos_verdes
+from claseCajasEspeciales import CajasEspeciales
 
-from teclado import TecladoExterminador1, TecladoExterminador2
+from claseTeclado import TecladoExterminador1, TecladoExterminador2
 
-from cronometro import Cronometro
-from controladorSonido import ControladorSonido
+from claseCronometro import Cronometro
+from claseControladorSonido import ControladorSonido
 
-from puntuacion import Puntuacion
+from clasePuntuacion import Puntuacion
 
 # Tamaño pantalla
-from variablesMain import ANCHO, ALTO
+from mainVariables import ANCHO, ALTO
 # FPS
-from variablesMain import FPS
+from mainVariables import FPS
 # PALETA DE COLORES RGB()
-from variablesMain import NEGRO, BLANCO, ROJO, AZUL,VERDE
+from mainVariables import NEGRO, BLANCO, ROJO, AZUL,VERDE
 
 # imagenes para el juego
 fondo = pg.transform.scale(pg.image.load("imagenes/fondos/fondo_cuidad_final.png"), (ANCHO,ALTO))
@@ -29,12 +29,12 @@ fondo = pg.transform.scale(pg.image.load("imagenes/fondos/fondo_cuidad_final.png
 
 
 # Pantalla y clock 
-from variablesMain import pantalla
-from variablesMain import clock
+from mainVariables import pantalla
+from mainVariables import clock
 # es volumen nulo 
-from variablesMain import es_volumen_nulo
+from mainVariables import es_volumen_nulo
 # controlador de sonifo
-from variablesMain import controladorSonido
+from mainVariables import controladorSonido
 
 
 

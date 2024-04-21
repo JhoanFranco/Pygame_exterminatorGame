@@ -1,9 +1,9 @@
 import pygame as pg
-from variablesMain import ANCHO, ALTO,ROJO
-from disparo import DisparosArriba,DisparosIzquierda,DisparosDerecha,DisparosAbajo
-from muro import Muro, MuroExplosivo
-from controladorSonido import ControladorSonido 
-from teclado import TecladoExterminador1
+from mainVariables import ANCHO, ALTO,ROJO
+from claseDisparo import DisparosArriba,DisparosIzquierda,DisparosDerecha,DisparosAbajo
+from claseMuro import Muro, MuroExplosivo
+from claseControladorSonido import ControladorSonido 
+from claseTeclado import TecladoExterminador1
 
 
 imagenes_exterminador_quieto = [
@@ -102,7 +102,7 @@ class Jugador(pg.sprite.Sprite):                                                
 
     def update(self, jugador, sprites_balas_grandes:pg.sprite.Group, sprites_balas:pg.sprite.Group, sprites_muros:pg.sprite.Group, sprites_muros_explosivos:pg.sprite.Group): # hereda de la clase sprite Update
         ## importar controlador de sonido
-        from variablesMain import controladorSonido
+        from mainVariables import controladorSonido
         es_volumen_nulo = controladorSonido.es_volumen_nulo
 
         if self.vidaJuagador > 0:
