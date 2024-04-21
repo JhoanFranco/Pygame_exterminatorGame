@@ -13,13 +13,13 @@ pg.init()
 pg.display.set_caption("Menu")
 
 # Background
-Background = pg.transform.scale(pg.image.load("imagenes/fondoMenu.png"),(ANCHO,ALTO))
+Background = pg.transform.scale(pg.image.load("imagenes/fondos/fondoMenu.png"),(ANCHO,ALTO))
 
 # Font 
 fontHallowen = pg.font.Font("fuentes/HalloweenFont.otf", 50)
 
 # squareImage
-imageSquare = pg.image.load("imagenes/cuadroSinFondo.png")
+imageSquare = pg.image.load("imagenes/fondos/cuadroSinFondo.png")
 posxDraw, posyDraw = 0, 0
 squareDraw = pg.draw.rect(pantalla,(200,200,200),(posxDraw,posyDraw,100,100))# the other 100, 100 are the size of the draw
 
@@ -61,7 +61,7 @@ listButtonMenuScore =[buttonBack]
 def menuOption():
     while True:
         positionMouse = pg.mouse.get_pos() # obtener la posicion del mouse en la ventana de pygame 
-        Background2 = pg.transform.scale(pg.image.load("imagenes/fondoMenu2.png"),(ANCHO,ALTO)) # ponerle el fondo 
+        Background2 = pg.transform.scale(pg.image.load("imagenes/fondos/fondoMenu2.png"),(ANCHO,ALTO)) # ponerle el fondo 
         pantalla.blit(Background2, (0,0)) #Whitout margin, poner el fondo 
 
         # por cada boton en la lista ponerlo en la pantalla
@@ -88,7 +88,7 @@ def menuOption():
 def menuScores():
     while True:
         positionMouse = pg.mouse.get_pos() # obtener la posicion del mouse en la ventana de pygame 
-        Background2 = pg.transform.scale(pg.image.load("imagenes/fondoMenu2.png"),(ANCHO,ALTO)) # ponerle el fondo 
+        Background2 = pg.transform.scale(pg.image.load("imagenes/fondos/fondoMenu2.png"),(ANCHO,ALTO)) # ponerle el fondo 
         pantalla.blit(Background2, (0,0)) #Whitout margin, poner el fondo 
 
         # por cada boton en la lista ponerlo en la pantalla
@@ -140,7 +140,7 @@ def menuInstrucciones():
     while True:
         positionMouse = pg.mouse.get_pos() # obtener la posicion del mouse en la ventana de pygame 
         # instrucciones
-        BackgroundInstrucciones = pg.transform.scale(pg.image.load("imagenes/Instrucciones.png"),(ANCHO,ALTO))
+        BackgroundInstrucciones = pg.transform.scale(pg.image.load("imagenes/instrucciones/Instrucciones.png"),(ANCHO,ALTO))
         pantalla.blit(BackgroundInstrucciones, (0,0)) #Whitout margin, poner el fondo 
 
         # por cada boton en la lista ponerlo en la pantalla
@@ -165,7 +165,7 @@ def menuPlay():
     while True:
         positionMouse = pg.mouse.get_pos() # obtener la posicion del mouse en la ventana de pygame 
         # instrucciones
-        BackgroundInstrucciones = pg.transform.scale(pg.image.load("imagenes/fondoMenu2.png"),(ANCHO,ALTO))
+        BackgroundInstrucciones = pg.transform.scale(pg.image.load("imagenes/fondos/fondoMenu2.png"),(ANCHO,ALTO))
         pantalla.blit(BackgroundInstrucciones, (0,0)) #Whitout margin, poner el fondo 
 
         # por cada boton en la lista ponerlo en la pantalla

@@ -24,7 +24,7 @@ from variablesMain import FPS
 from variablesMain import NEGRO, BLANCO, ROJO, AZUL,VERDE
 
 # imagenes para el juego
-fondo = pg.transform.scale(pg.image.load("imagenes/fondo_cuidad_final.png"), (ANCHO,ALTO))
+fondo = pg.transform.scale(pg.image.load("imagenes/fondos/fondo_cuidad_final.png"), (ANCHO,ALTO))
 
 
 
@@ -590,9 +590,9 @@ def iniciarJuego(numeroJugadores):
         ]
 
         imagenes_cajasEspeciales = [
-            pg.image.load("imagenes/caja_barril_explota.png"),
-            pg.image.load("imagenes/caja_disparo_grande.png"),
-            pg.image.load("imagenes/muro_blanco.png")
+            pg.image.load("imagenes/cajasEspeciales/caja_barril_explota.png"),
+            pg.image.load("imagenes/cajasEspeciales/caja_disparo_grande.png"),
+            pg.image.load("imagenes/cajasEspeciales/muro_blanco.png")
         ]
 
     # imprimir en la pantalla el cronometro

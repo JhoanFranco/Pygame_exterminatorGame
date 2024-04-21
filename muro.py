@@ -4,16 +4,16 @@ from controladorSonido import ControladorSonido
 
 
 imagenes_Muro = [
-    pg.image.load("imagenes/muro_blanco.png")
+    pg.image.load("imagenes/muros/muro_blanco.png")
 ]
 
 imagenes_cajasEspeciales = [
-    pg.image.load("imagenes/caja_barril_explota.png"),
-    pg.image.load("imagenes/caja_disparo_grande.png"),
-    pg.image.load("imagenes/muro_blanco.png")
+    pg.image.load("imagenes/cajasEspeciales/caja_barril_explota.png"),
+    pg.image.load("imagenes/cajasEspeciales/caja_disparo_grande.png"),
+    pg.image.load("imagenes/cajasEspeciales/muro_blanco.png")
 ]
 
-imagenes_efectosJuego = [pg.image.load("imagenes/explosion_barril.png")] 
+imagenes_efectosJuego = [pg.image.load("imagenes/muros/explosion_barril.png")] 
 
 class Muro(pg.sprite.Sprite):
     def __init__(self, x, y):

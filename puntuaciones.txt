@@ -1,8 +1,8 @@
 indice,nombre,numeroJugadores,puntuacion,#ZombiesMuertos
-1,JHOANFRANC,1,1747,NoDef
-2,xddddd,1,276,NoDef
-3,JHOAN,1,3,NoDef
-4,vacio,vacio,0,vacio
+1,xddx,1,1903,NoDef
+2,JHOANFRANC,1,1747,NoDef
+3,xddddd,1,276,NoDef
+4,JHOAN,1,3,NoDef
 5,vacio,vacio,0,vacio
 6,vacio,vacio,0,vacio
 7,vacio,vacio,0,vacio
