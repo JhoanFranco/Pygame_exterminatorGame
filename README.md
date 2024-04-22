@@ -29,3 +29,7 @@ and then run the main file (main_project.py). This is due to pygame's need to se
 **Reason:** First semester project in Systems Engineering at UNAL (National University of Colombia)
 <br> <br>
 **HOW TO RUN:** In the ejecutable/main folder there is a python .exe file, just double click and run it
+
+![image](https://github.com/JhoanFranco/Pygame_exterminator/assets/104951008/6a10a09e-aa16-4497-88fe-02ddd1689376)
+![image](https://github.com/JhoanFranco/Pygame_exterminator/assets/104951008/fc337faf-e3e8-4bbd-9110-f0e03ac904d8)
+
