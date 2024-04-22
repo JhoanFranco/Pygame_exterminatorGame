@@ -2,9 +2,9 @@ ESPAÑOL:
 # Pygame_exterminator
 Es un juego de un exterminador donde la finalidad es matar zombies.
 <br> <br>
-**Sobre el juego:** Desarrollado en el lenguaje de Python con el modulo de `pygame` principalmente. Pero tambien otros basicos como `Time` y `Random`.
+**Sobre el codigo:** Desarrollado en el lenguaje de Python con el modulo de `pygame` principalmente. Pero tambien otros basicos como `Time` y `Random`.
 Para correrlo se recomienda (obligatoriamente) Utilizar `visual Studio Code` o cualquier herramienta de desarrollo pareceido y abrir todos los archivos al tiempo,
-para luego si correr el archivo main(main_proyecto.py). Esto debido a la necesidad de pygame de buscar las imagenes y audios.
+para luego si correr el archivo main(main.py). Esto debido a la necesidad de pygame de buscar las imagenes y audios.
 <br> <br>
 **Referencias:** El juego principalmente se desarrollo Siguiendo el curso de la siguiente Pagina https://www.programacionfacil.org/cursos/pygame/pygame_index.html
 <br> <br>
@@ -18,9 +18,9 @@ ENGLISH:
 # Pygame_exterminator
 It is an exterminator game where the goal is to kill zombies.
 <br> <br>
-**About the game:** Developed in the Python language with the `pygame` module mainly. But also other basic ones like `Time` and `Random`.
+**About the code:** Developed in the Python language with the `pygame` module mainly. But also other basic ones like `Time` and `Random`.
 To run it, it is recommended (mandatory) to use `visual Studio Code` or any similar development tool and open all the files at the same time,
-and then run the main file (main_project.py). This is due to pygame's need to search for images and audios.
+and then run the main file (main.py). This is due to pygame's need to search for images and audios.
 <br> <br>
 **References:** The game was mainly developed following the course of the following Page https://www.programacionfacil.org/cursos/pygame/pygame_index.html
 <br> <br>
