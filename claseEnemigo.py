@@ -41,7 +41,7 @@ class Enemigos_verdes(pg.sprite.Sprite):
         pg.draw.circle(self.image, VERDE,self.rect.center,self.radius,5) # dibujamos ese radio
 
         # posicion aleatoria respecto a la pantalla
-        self.rect.x = random.randint(0,ANCHO/2)  #para que solo puedan aparecer desde el margen izquierdo hasta la mitad
+        self.rect.x = random.randint(0,ANCHO//2)  #para que solo puedan aparecer desde el margen izquierdo hasta la mitad
         self.rect.y = random.randrange(0,ALTO)
 
         # velocidad del personaje(inicial)
@@ -137,7 +137,7 @@ class Enemigos_morado(pg.sprite.Sprite):
         pg.draw.circle(self.image, VERDE,self.rect.center,self.radius,5) # dibujamos ese radio
 
         # posicion aleatoria respecto a la pantalla
-        self.rect.x = random.randint(0,ANCHO/2)
+        self.rect.x = random.randint(0,ANCHO//2)
         self.rect.y = random.randrange(0,ALTO)
 
         # velocidad del personaje(inicial)
